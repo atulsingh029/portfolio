@@ -45,3 +45,33 @@ class Carousel(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class ProjectCards(models.Model):
+    CHOICES = [('active', 'active'), ]
+    CSS = [('disabled', 'disabled'), ]
+
+    name = models.CharField(max_length=255, null=False, blank=False)
+    sourcecode = models.URLField(null=True, blank=True, default=None)
+    applink = models.URLField(null=True, blank=True, default=None)
+    icon = models.URLField(null=True, blank=True, default='https://atulsingh029.github.io/icons/pcdefault.png')
+    description = models.CharField(max_length=160, null=True, blank=True, default='')
+    allowed = models.BooleanField(default=False)
+    active = models.CharField(max_length=6, choices=CHOICES, null=True, blank=True, default=None)
+    appstatus = models.CharField(max_length=8, choices=CSS, null=True, blank=True, default=None)
+    sourcestatus = models.CharField(max_length=8, choices=CSS, null=True, blank=True, default=None)
+
+
+    @staticmethod
+    def getProjectCards():
+        projectObj = ProjectCards.objects.all()
+        projects = []
+        for i in projectObj:
+            if i.allowed:
+                temp = {'name': i.name, 'applink': i.applink,
+                        'sourcecode': i.sourcecode, 'active': i.active,
+                        'icon': i.icon, 'description': i.description,
+                        'appstatus' : i.appstatus, 'sourcestatus': i.sourcestatus
+                        }
+                projects.append(temp)
+        return projects

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Visitor,Contact,Carousel
+from .models import Visitor,Contact,Carousel,ProjectCards
 
 
 # Register your models here.
@@ -27,3 +27,11 @@ class CustomCraousel(admin.ModelAdmin):
 
 
 admin.site.register(Carousel,CustomCraousel)
+
+
+class CustomProjectCard(admin.ModelAdmin):
+    list_display = ('name', 'allowed')
+    list_filter = ('allowed',)
+    search_fields = ('name',)
+
+admin.site.register(ProjectCards,CustomProjectCard)
