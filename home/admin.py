@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Visitor,Contact,Carousel,ProjectCards
+from .models import Visitor,Contact,Carousel,ProjectCards,Tracking_Logger
 
 
 # Register your models here.
@@ -35,3 +35,10 @@ class CustomProjectCard(admin.ModelAdmin):
     search_fields = ('name',)
 
 admin.site.register(ProjectCards,CustomProjectCard)
+
+
+class CustomTrackingLogger(admin.ModelAdmin):
+    list_display = ('refer', 'ip', 'datetime')
+    search_fields = ('refer',)
+
+admin.site.register(Tracking_Logger,CustomTrackingLogger)

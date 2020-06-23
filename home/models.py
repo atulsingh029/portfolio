@@ -75,3 +75,9 @@ class ProjectCards(models.Model):
                         }
                 projects.append(temp)
         return projects
+
+
+class Tracking_Logger(models.Model):
+    ip = models.CharField(max_length=160)
+    refer = models.CharField(max_length=120)
+    datetime = models.DateTimeField(auto_now_add=True)
