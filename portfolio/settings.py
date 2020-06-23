@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'xefd3s)9ammm5c0hs^mko@s-ec&xrh2al=ur^*js@%h1@_rh)5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -125,6 +125,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR,'static'),
 
                     ]
+STATIC_ROOT = os.path.join(BASE_DIR,'static')
 
 # SMTP setup
 EMAIL_HOST = 'smtp.gmail.com'
