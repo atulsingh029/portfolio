@@ -193,84 +193,71 @@
     <!-- end education -->
 
     <!-- projects -->
-    <div class="card mb-4" id="projects">
-        <div class="card-header text-center">
-            Projects
-        </div>
-        <div class="card-body p-2">
-            <div class="row">
-                <!-- project card 1 -->
-                <div class="col-sm-6 col-md-6">
-                    <div class="carousel slide carousel-fade" data-ride="carousel">
-                      <div class="carousel-inner">
-                          {% for project in list2 %}
-                        <div class="carousel-item {{ project.active }}" data-interval="2000">
-                          <!--card here-->
-                            <div align="center">
-                                <div class="card mb-3 " style="max-width: 540px;">
-                                    <div class="row no-gutters">
-                                        <div class="col-md-4">
-                                            <img src="{{ project.icon }}" class="card-img " alt="...">
-                                        </div>
-                                        <div class="col-md-8">
-                                            <div class="card-body"><h5 class="card-title">{{ project.name }}</h5>
-                                                <p class="card-text">{{ project.description }}</p>
-                                                <div class="nav">
-                                                    <a href="{{ project.applink }}" class="nav-link {{ project.appstatus }}" target="_blank"><button type="button" class="btn btn-outline-dark {{ project.appstatus }}">Go To App</button></a>
-                                                    <a href="{{ project.sourcecode }}" class="nav-link {{ project.sourcestatus }}" target="_blank"><button type="button" class="btn btn-outline-dark {{ project.sourcestatus }}">Source Code</button></a>
-                                                </div>
-                                            </div>
+<div class="card mb-4">
+  <div class="card-header">
+    Projects
+  </div>
+  <div class="card-body ">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    {% for project in list1 %}
+                  <div class="carousel-item {{ project.active }}" data-interval="10000">
+                            <div class="card mb-2" style="max-width: 540px;">
+                                <div class="row">
+                                  <div class="col-4">
+                                    <img src="{{ project.icon }}" class=" img-fluid text-center" alt="icon">
+                                  </div>
+                                  <div class="col-8 bg-light">
+                                    <div class="card-body ">
+                                      <h5 class="card-title">{{ project.name }}</h5>
+                                        <div class="d-none d-sm-none d-md-block">
+                                      <p class="">{{ project.description }}</p></div>
+                                      <div class="btn-group" role="group" aria-label="Basic example">
+                                          <a href="{{ project.applink }}" class="btn btn-secondary btn-sm {{ project.appstatus }}" target="_blank">Go To App</a>
+                                          <a href="{{ project.sourcecode }}" class="btn btn-secondary btn-sm  {{ project.sourcestatus }}" target="_blank">Source Code</a>
                                         </div>
                                     </div>
+                                  </div>
                                 </div>
                             </div>
-                            <!-- end card-->
-                        </div>
-                        {% endfor %}
-                        </div>
-                    </div>
+                  </div>
+                    {% endfor %}
                 </div>
-                <!-- end project card 1 -->
-                <!-- project card 2 -->
-                <div class="col-sm-6 col-md-6">
-                    <div class="carousel slide carousel-fade" data-ride="carousel">
-                      <div class="carousel-inner">
-                          {% for project in list1 %}
-                        <div class="carousel-item {{ project.active }} "  data-interval="2000">
-                          <!--card here-->
-                            <div align="center">
-                                <div class="card mb-3 " style="max-width: 540px; ">
-                                    <div class="row no-gutters">
-                                        <div class="col-md-4">
-                                            <img src="{{ project.icon }}" class="card-img " alt="...">
-                                        </div>
-                                        <div class="col-md-8">
-                                            <div class="card-body"><h5 class="card-title">{{ project.name }}</h5>
-                                                <p class="card-text">{{ project.description }}</p>
-                                                   <div class="nav">
-                                                    <a href="{{ project.applink }}" class="nav-link {{ project.appstatus }}" target="_blank"><button type="button" class="btn btn-outline-dark {{ project.appstatus }}">Go To App</button></a>
-                                                    <a href="{{ project.sourcecode }}" class="nav-link {{ project.sourcestatus }}" target="_blank"><button type="button" class="btn btn-outline-dark {{ project.sourcestatus }}">Source Code</button></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- end card-->
-                        </div>
-                        {% endfor %}
-                        </div>
-                    </div>
-                </div>
-                <!-- end project card 2 -->
             </div>
-            <div class="mb-0" align="right">
-                <a href="#">
-                    <button type="button" class="btn btn-sm btn-light">List All</button>
-                </a>
+        </div>
+        <div class="d-none d-sm-none d-md-block col-md-6 col-lg-6 col-xl-6">
+            <div class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    {% for project in list2 %}
+                  <div class="carousel-item {{ project.active }}" data-interval="10000">
+                            <div class="card mb-2" style="max-width: 540px;">
+                                <div class="row">
+                                  <div class="col-4">
+                                    <img src="{{ project.icon }}" class=" img-fluid text-center" alt="icon">
+                                  </div>
+                                  <div class="col-8 bg-light">
+                                    <div class="card-body ">
+                                      <h5 class="card-title">{{ project.name }}</h5>
+                                        <div class="d-none d-sm-none d-md-block">
+                                      <p class="">{{ project.description }}</p></div>
+                                      <div class="btn-group" role="group" aria-label="Basic example">
+                                          <a href="{{ project.applink }}" class="btn btn-secondary btn-sm {{ project.appstatus }}" target="_blank">Go To App</a>
+                                          <a href="{{ project.sourcecode }}" class="btn btn-secondary btn-sm  {{ project.sourcestatus }}" target="_blank">Source Code</a>
+                                        </div>
+                                    </div>
+                                  </div>
+                                </div>
+                            </div>
+                  </div>
+                    {% endfor %}
+                </div>
             </div>
         </div>
     </div>
+  </div>
+</div>
     <!-- end projects -->
 
     <!-- banner -->
