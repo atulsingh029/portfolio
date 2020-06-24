@@ -103,13 +103,13 @@
         <div class="card-header text-center">
             Certificates & Recognitions
         </div>
-        <div class="card-body p-2">
+        <div class="card-body p-1">
             <div id="edu" class="carousel slide m-2" data-ride="carousel">
                 <div class="carousel-inner">
                     {% for carousel in carousels %}
                         <div class="carousel-item {{ carousel.active }}">
                             <img src="{{ carousel.carouselimg }}" class="d-block w-100" alt="">
-                            <div class="carousel-caption d-none d-block">
+                            <div class="carousel-caption d-none d-sm-none d-md-block">
                                 {% if carousel.carouselapplink %}
                                     <a href="{{ carousel.carouselapplink }}" target="_blank">
                                         <button class="btn btn-sm btn-dark">{{ carousel.carouselappname }}</button>
@@ -130,7 +130,7 @@
             </div>
             <div class="mb-0" align="right">
                 <a href="#">
-                    <button type="button" class="btn btn-sm btn-light">List All</button>
+                    <button type="button" class="btn btn-xs btn-light">List All</button>
                 </a>
             </div>
         </div>
@@ -256,6 +256,11 @@
             </div>
         </div>
     </div>
+  <div class="mb-0" align="right">
+                <a href="#">
+                    <button type="button" class="btn btn-xs btn-light">List All</button>
+                </a>
+            </div>
   </div>
 </div>
     <!-- end projects -->
