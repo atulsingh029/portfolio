@@ -30,7 +30,10 @@ class Carousel(models.Model):
     carouselappname = models.CharField(max_length=50, null=True, blank=True)
     carouselapplink = models.CharField(max_length=255, null=True, blank=True)
     active = models.CharField(max_length=6,choices=CHOICES, null=True, blank=True, default=None)
+    issuedby = models.CharField(max_length=130, null=False, blank=False)
     allowed = models.BooleanField(default=False)
+    iscertificate = models.BooleanField(default=False)
+
 
     @staticmethod
     def getCarousel():
@@ -39,7 +42,9 @@ class Carousel(models.Model):
         for i in craouselsObj:
             if i.allowed:
                 temp = {'carouselimg': i.carouselimg, 'carouselapplink': i.carouselapplink,
-                        'carouselappname': i.carouselappname, 'active': i.active}
+                        'carouselappname': i.carouselappname, 'active': i.active,
+                        'issuedby':i.issuedby, 'iscertificate':i.iscertificate,
+                        'name':i.name,}
                 craousels.append(temp)
         return craousels
 

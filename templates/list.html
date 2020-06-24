@@ -1,0 +1,25 @@
+{% extends 'abstract_base.html' %}
+{% block container %}
+    <div class="alert alert-secondary p-1 m-1">
+        <H3 class="text-center">{{ list_type }}</H3>
+    </div>
+    <table class="table table-striped m-1 ">
+      <thead>
+        <tr>
+           {% for heading in headings %}
+          <th scope="col">{{ heading }}</th>
+            {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+      {% for item in items %}
+        <tr>
+           <td>{{ item.text1 }}</td>
+           <td>{{ item.text2 }}</td>
+           <td><a href="{{ item.link1 }}" target="_blank">{{ item.btn1 }}</a></td>
+           <td><a href="{{ item.link2 }}" target="_blank">{{ item.btn2 }}</a></td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+{% endblock %}
