@@ -1,5 +1,13 @@
 {% extends 'abstract_base.html' %}
 {% block container %}
+    {% if success != '' %}
+        <div class="alert alert-success alert-dismissible fade show mb-1 mt-1" role="alert">
+              {{ success }}
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+        </div>
+    {% endif %}
     <div class="alert alert-secondary p-1 m-1">
         <H3 class="text-center">{{ list_type }}</H3>
     </div>

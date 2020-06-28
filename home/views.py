@@ -82,13 +82,18 @@ def presence(request):
 
 
 def list_all(request):
+    try:
+        if request.GET['refer'] == 'refer_success':
+            success = "Thank you for contacting, I shall respond back soon to your provided email."
+    except:
+        success = ''
     redirectto = 'list_all'
     try:
         type = request.GET['type']
     except:
         return redirect('/')
     if type == 'certificates':
-        heading = ['Name', 'IssuedBy', 'certificate']
+        heading = ['Name', 'IssuedBy', 'Certificate']
         items = []
         out = Carousel.getCarousel()
         for i in out:
@@ -98,7 +103,8 @@ def list_all(request):
         mform = MailingForm()
         vform = VisitorForm()
         context = {'headings': heading, 'items': items, 'list_type': type, 'contactform':mform, 'presenceform':vform,
-                   'redirect_to':redirectto, 'nav1':'Projects', 'navlink1':'/list_all/?type=projects'}
+                   'redirect_to':redirectto, 'nav1':'Projects', 'navlink1':'/list_all/?type=projects', 'success':success,
+                   }
         return render(request, 'list.html', context=context)
     elif type == 'projects':
         heading = ['Name', 'AppLink', 'SourceCode']
@@ -115,7 +121,8 @@ def list_all(request):
             temp={'text1':i['name'], 'link1':applink,'btn1':'open','link2':sourcecode,'btn2':'view','status1':i['appstatus'], 'status2':i['sourcestatus']}
             items.append(temp)
         context = {'headings': heading, 'items': items, 'list_type': type, 'contactform':mform, 'presenceform':vform,
-                   'redirect_to':redirectto, 'nav1':'Certificates', 'navlink1':'/list_all/?type=certificates'}
+                   'redirect_to':redirectto, 'nav1':'Certificates', 'navlink1':'/list_all/?type=certificates',
+                   'success':success,}
         return render(request, 'list.html', context=context)
     else:
         return redirect('/')

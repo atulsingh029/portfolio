@@ -27,13 +27,15 @@
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
                 <div class="navbar-nav ">
-                    <a class="nav-item nav-link" href="/how-to">How-To</a>
-                    <a class="nav-item nav-link" href="/blog">Blog</a>
+                    <a class="nav-item nav-link" href="/">Home</a>
                     {% if nav1 %}
-                    <a class="nav-item nav-link" href="{{ navlink1 }}">{{ nav1 }}</a>
+                        <a class="nav-item nav-link" href="{{ navlink1 }}">{{ nav1 }}</a>
                     {% endif %}
                     {% if nav2 %}
-                    <a class="nav-item nav-link" href="{{ navlink2 }}">{{ nav2 }}</a>
+                        <a class="nav-item nav-link" href="{{ navlink2 }}">{{ nav2 }}</a>
+                    {% endif %}
+                    {% if nav3 %}
+                        <a class="nav-item nav-link" href="{{ navlink3 }}">{{ nav3 }}</a>
                     {% endif %}
                     <!-- Button trigger modal -->
                     <button type="button" id='contact' class="btn btn-outline-secondary btn-sm" data-toggle="modal"
