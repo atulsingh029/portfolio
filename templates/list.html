@@ -14,10 +14,19 @@
       <tbody>
       {% for item in items %}
         <tr>
+        {% if item.text1 %}
            <td>{{ item.text1 }}</td>
+        {% endif %}
+        {% if item.text2 %}
            <td>{{ item.text2 }}</td>
-           <td><a href="{{ item.link1 }}" target="_blank">{{ item.btn1 }}</a></td>
-           <td><a href="{{ item.link2 }}" target="_blank">{{ item.btn2 }}</a></td>
+        {% endif %}
+<!--  small screens -->
+           <td class="d-md-none "><a href="{{ item.link1 }}" target="_blank" class="nav-link {{ item.status1 }} pl-0">{{ item.btn1 }}</a></td>
+           <td class="d-md-none "><a href="{{ item.link2 }}" target="_blank" class="nav-link {{ item.status2 }} pl-0">{{ item.btn2 }}</a></td>
+<!-- large screens -->
+           <td class="d-none d-md-table-cell"><a href="{{ item.link1 }}" target="_blank" class="nav-link {{ item.status1 }} pl-0">{{item.link1 }}</a></td>
+           <td class="d-none d-md-table-cell"><a href="{{ item.link2 }}" target="_blank" class="nav-link {{ item.status2 }} pl-0">{{item.link2 }}</a></td>
+
         </tr>
       {% endfor %}
       </tbody>

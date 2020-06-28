@@ -23,7 +23,10 @@ def home(request):
 
     mform = MailingForm()
     vform = VisitorForm()
-    temp = ProjectCards.getProjectCards()
+    temp = []
+    for card in ProjectCards.getProjectCards():
+        if card['allowed'] == True:
+            temp.append(card)
     Tracking_Logger.objects.create(ip = ip, refer=refer)
     twolists = [temp[0:int(len(temp)/2)],temp[int(len(temp)/2):int(len(temp))]]
     introtext = 'I am Atul Singh, a computer science student currently in 3rd year of graduation. ' \
@@ -85,35 +88,34 @@ def list_all(request):
     except:
         return redirect('/')
     if type == 'certificates':
-        heading = ['Name', 'Issued By', 'certificate']
+        heading = ['Name', 'IssuedBy', 'certificate']
         items = []
         out = Carousel.getCarousel()
         for i in out:
             if i['iscertificate']:
-                temp = {'text1':i['name'], 'text2':i['issuedby'], 'link1':i['carouselapplink'],'btn1':i['carouselapplink'],}
+                temp = {'text1':i['name'], 'text2':i['issuedby'], 'link1':i['carouselapplink'],'btn1':'view certificate',}
                 items.append(temp)
         mform = MailingForm()
         vform = VisitorForm()
-        context = {'headings': heading, 'items': items, 'list_type': type, 'contactform':mform, 'presenceform':vform, 'redirect_to':redirectto}
+        context = {'headings': heading, 'items': items, 'list_type': type, 'contactform':mform, 'presenceform':vform,
+                   'redirect_to':redirectto, 'nav1':'Projects', 'navlink1':'/list_all/?type=projects'}
         return render(request, 'list.html', context=context)
     elif type == 'projects':
-        heading = ['Name', 'Description', 'App Link', 'Source Code']
+        heading = ['Name', 'AppLink', 'SourceCode']
         items = []
         mform = MailingForm()
         vform = VisitorForm()
         out = ProjectCards.getProjectCards()
         for i in out:
-            if i['applink'] =='':
-                applink = '#'
+            if i['applink'] is None:
+                applink='#'
             else:
                 applink = i['applink']
-            if i['sourcecode'] =='':
-                sourcecode = '#'
-            else:
-                sourcecode = i['sourcecode']
-            temp={'text1':i['name'], 'text2':i['description'],'link1':applink,'btn1':'Go To App','link2':sourcecode,'btn2':sourcecode}
+            sourcecode = i['sourcecode']
+            temp={'text1':i['name'], 'link1':applink,'btn1':'open','link2':sourcecode,'btn2':'view','status1':i['appstatus'], 'status2':i['sourcestatus']}
             items.append(temp)
-        context = {'headings': heading, 'items': items, 'list_type': type, 'contactform':mform, 'presenceform':vform, 'redirect_to':redirectto}
+        context = {'headings': heading, 'items': items, 'list_type': type, 'contactform':mform, 'presenceform':vform,
+                   'redirect_to':redirectto, 'nav1':'Certificates', 'navlink1':'/list_all/?type=certificates'}
         return render(request, 'list.html', context=context)
     else:
         return redirect('/')

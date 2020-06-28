@@ -72,11 +72,11 @@ class ProjectCards(models.Model):
         projectObj = ProjectCards.objects.all()
         projects = []
         for i in projectObj:
-            if i.allowed:
                 temp = {'name': i.name, 'applink': i.applink,
                         'sourcecode': i.sourcecode, 'active': i.active,
                         'icon': i.icon, 'description': i.description,
-                        'appstatus' : i.appstatus, 'sourcestatus': i.sourcestatus
+                        'appstatus' : i.appstatus, 'sourcestatus': i.sourcestatus,
+                        'allowed':i.allowed
                         }
                 projects.append(temp)
         return projects
