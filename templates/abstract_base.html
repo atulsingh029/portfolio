@@ -54,7 +54,7 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <form method="post" action="c/?redir={{ redirect_to }}&type={{ list_type }}">
+                                <form method="post" action="/c/?redir={{ redirect_to }}&type={{ list_type }}">
                                     {% csrf_token %}
                                     <div class="modal-body justify-content-center">
                                         {{ contactform|crispy }}
@@ -134,7 +134,7 @@
                             Let me know your presence
                         </div>
                         <div class="card-body">
-                            <form method="post" action="p/?redir={{ redirect_to }}&type={{ list_type }}">
+                            <form method="post" action="/p/?redir={{ redirect_to }}&type={{ list_type }}">
                                 {% csrf_token %}
                                 {{ presenceform|crispy }}
                                 <button class="btn btn-outline-secondary btn-sm" type="submit">Submit</button>
