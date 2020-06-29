@@ -11,19 +11,19 @@ def blog(request):
     else:
         last = len(blog_list)-1
     banner_temp = blog_list[last]
+
     top3=[]
     latest = []
 
     for i in blog_list:
+            if i == banner_temp:
+                continue
             if i.top3:
                 top3.append(i)
             else:
                 latest.append(i)
     top3.reverse()
-    try:
-        latest.pop()
-    except:
-        pass
+
     latest.reverse()
     paged = Paginator(latest,5)
     page = request.GET.get('page', 1)
@@ -35,7 +35,7 @@ def blog(request):
         latest = paged.get_page(paged.num_pages)
 
 
-    banner = {'link': banner_temp.link, 'title': banner_temp.title, 'image': banner_temp.image,
+    banner = {'linkkey': banner_temp.linkkey, 'title': banner_temp.title, 'image': banner_temp.image,
               'subtitle': banner_temp.subtitle, 'datetime': banner_temp.datetime,
               'writer': banner_temp.writer, 'type': banner_temp.type}
     if len(banner) == 0:
@@ -48,3 +48,16 @@ def blog(request):
     vform = VisitorForm()
     context = {'contactform':mform, 'presenceform':vform,'redirect_to':'blog','top3flinks':top3,'flinks':latest, 'banner':banner}
     return render(request, 'blog.html',context=context)
+
+
+def blogView(request):
+    goto = request.GET.get('to','')
+    obj = Blog.objects.filter(linkkey=goto)
+    try:
+        out = {'title': obj[0].title, 'image':obj[0].image,
+                  'subtitle': obj[0].subtitle, 'datetime': obj[0].datetime,
+                  'writer': obj[0].writer, 'type': obj[0].type, 'text':obj[0].text}
+    except:
+        out = {'subtitle':'blog not found.'}
+    context = {'blog':out}
+    return render(request,'blogview.html',context=context)

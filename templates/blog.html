@@ -4,19 +4,19 @@
 {% block container %}
     <div class="row">
         <div class="col-12 col-md-6 m-0 p-0 ">
-            <a href="{{ banner.link }}">
+            <a href="g/?to={{ banner.linkkey }}">
                 <div class="baselink">
                     <img src="/static/media/{{ banner.image }}" class="img-fluid p-2">
-                    <h2 class="head">{{ banner.title }}</h2>
-                    <p>{{ banner.subtitle }}</p>
-                    <p>{{ banner.writer }} on {{ banner.datetime }}</p>
-                    <p>-{{ banner.type }}</p>
+                    <h2 class="head p-2">{{ banner.title }}</h2>
+                    <p class="p-2">{{ banner.subtitle }}</p>
+                    <p class="p-2">{{ banner.writer }} on {{ banner.datetime }}</p>
+                    <p class="p-2">-{{ banner.type }}</p>
                 </div>
             </a>
         </div>
         <div class="col-12 col-md-6">
             {% for flink in top3flinks %}
-                <a href="{{ flink.link }}" >
+                <a href="g/?to={{ flink.linkkey }}" >
                 <div class="baselink">
                     <div class="d-none d-md-block">
                         <div class="media m-2">
@@ -50,7 +50,7 @@
     <h5 class="mb-0 pb-0">Latest Stories</h5>
     <hr class="m-0 p-1">
     {% for flink in flinks %}
-        <a href="{{ flink.link }}">
+        <a href="g/?to={{ flink.linkkey }}">
         <div class="baselink">
             <div class="d-none d-md-block">
                 <div class="media m-2">

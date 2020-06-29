@@ -9,8 +9,9 @@ class Blog(models.Model):
     title = models.CharField(max_length=160,)
     image = models.ImageField()
     subtitle = models.CharField(max_length=256)
-    text = models.CharField(max_length=4000)
-    link = models.URLField(default='google.com')
+    text = models.CharField(max_length=8000)
+    linkkey = models.CharField(unique=True,max_length=255)
     top3 = models.BooleanField(default=False)
     allowed = models.BooleanField(default=False)
     type = models.CharField(max_length=24,choices=CHOICES, null=True, blank=True, default=None)
+
