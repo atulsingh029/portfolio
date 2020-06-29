@@ -8,6 +8,6 @@ class MailingForm(forms.Form):
 
 
 class VisitorForm(forms.Form):
-    name = forms.CharField(min_length=3, max_length=160, required=True, label="Name",)
-    email = forms.EmailField(max_length=254, required=True, label="Email",)
+    name = forms.CharField(min_length=3, max_length=160, required=True,)
+    email = forms.EmailField(max_length=254, required=True,)
     subscribe = forms.BooleanField(required=False, label="Subscribe To My Newsletter ")

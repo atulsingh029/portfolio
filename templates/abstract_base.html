@@ -10,7 +10,7 @@
     <link rel="stylesheet" href={% static 'stylesheet/base.css' %}>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Home - atul.codes</title>
+    <title>{{ title }}</title>
 </head>
 <body>
 <header>
@@ -19,7 +19,7 @@
             <a class="navbar-brand" href="/">
                 <img src="https://atulsingh029.github.io/icons/icon.png" width="50" height="50"
                      class="d-inline-block align-middle" alt="" loading="lazy">
-                <span class="pl-1">atul.codes</span>
+                <span class="pl-1">atul.codes{{ sidetitle }}</span>
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
                     aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">

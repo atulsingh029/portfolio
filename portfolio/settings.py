@@ -127,6 +127,9 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR,'staticfiles'),
                     ]
 STATIC_ROOT = os.path.join(BASE_DIR,'static')
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/media')
+
 # SMTP setup
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER ='atul.auth@gmail.com'
@@ -134,3 +137,5 @@ EMAIL_HOST_PASSWORD ='jBNzLZZ3bcTeEPM'
 EMAIL_PORT=587
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
+
+

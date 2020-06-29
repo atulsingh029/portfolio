@@ -1,4 +1,105 @@
 {%  extends 'abstract_base.html' %}
+{% load static %}
+
 {% block container %}
-    <h5 align="center">Work in progress, coming soon!</h5>
+    <div class="row">
+        <div class="col-12 col-md-6 m-0 p-0 ">
+            <a href="{{ banner.link }}">
+                <div class="baselink">
+                    <img src="/media/{{ banner.image }}" class="img-fluid p-2">
+                    <h2 class="head">{{ banner.title }}</h2>
+                    <p>{{ banner.subtitle }}</p>
+                    <p>{{ banner.writer }} on {{ banner.datetime }}</p>
+                    <p>-{{ banner.type }}</p>
+                </div>
+            </a>
+        </div>
+        <div class="col-12 col-md-6">
+            {% for flink in top3flinks %}
+                <a href="{{ flink.link }}" >
+                <div class="baselink">
+                    <div class="d-none d-md-block">
+                        <div class="media m-2">
+                          <img src="/media/{{ flink.image }}" class="align-self-center mr-3 " alt="..." height="150px" width="150px">
+                          <div class="media-body">
+                            <h5 class="head mt-0">{{ flink.title }}</h5>
+                            <p>{{ flink.subtitle }}</p>
+                            <p>{{ flink.writer }} on {{ flink.datetime }}</p>
+                            <p>-{{ flink.type }}</p>
+                          </div>
+                        </div>
+                    </div>
+                    <div class=" d-md-none m-2 ">
+                        <div class="card" >
+                          <div class="card-header p-0 m-0">
+                            <img src="/media/{{ flink.image }}" class="card-img-top " alt="...">
+                          </div>
+                          <div class="card-body">
+                            <h5 class="card-title head">{{ flink.title }}</h5>
+                            <p class="card-text">{{ flink.subtitle }}</p>
+                            <p>{{ flink.writer }} on {{ flink.datetime }}</p>
+                            <p>-{{ flink.type }}</p>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+                </a>
+    {% endfor %}
+        </div>
+    </div>
+    <h5 class="mb-0 pb-0">Latest Stories</h5>
+    <hr class="m-0 p-1">
+    {% for flink in flinks %}
+        <a href="{{ flink.link }}">
+        <div class="baselink">
+            <div class="d-none d-md-block">
+                <div class="media m-2">
+                  <img src="/media/{{ flink.image }}" class="align-self-center mr-3 " alt="..." height="150px" width="150px">
+                  <div class="media-body">
+                    <h5 class="head mt-0">{{ flink.title }}</h5>
+                    <p>{{ flink.subtitle }}</p>
+                    <p>{{ flink.writer }} on {{ flink.datetime }}</p>
+                    <p>-{{ flink.type }}</p>
+                  </div>
+                </div>
+            </div>
+            <div class=" d-md-none m-2 ">
+                <div class="card" >
+                  <div class="card-header p-0 m-0">
+                    <img src="/media/{{ flink.image }}" class="card-img-top " alt="...">
+                  </div>
+                  <div class="card-body">
+                    <h5 class="card-title head">{{ flink.title }}</h5>
+                    <p class="card-text">{{ flink.subtitle }}</p>
+                    <p>by- {{ flink.writer }} on {{ flink.datetime }}</p>
+                    <p>-{{ flink.type }}</p>
+                  </div>
+                </div>
+            </div>
+        </div>
+        </a>
+    {% endfor %}
+
+<div>
+    {% if flinks.has_other_pages %}
+        {% if flinks.has_previous %}
+            <a href="?page=1" class="btn btn-outline-info m-1 btn-sm">First</a>
+            <a href="?page={{ flinks.previous_page_number }}" class="btn btn-outline-info m-1 btn-sm">Previous</a>
+        {% endif %}
+        {% for num in flinks.paginator.page_range %}
+            {% if num == flinks.number %}
+                <a href="?page={{ num }}" class="btn btn-info m-1 btn-sm" >{{ num }}</a>
+            {% elif num > flinks.number|add:'-3' and num < flinks.number|add:'3' %}
+                <a href="?page={{ num }}" class="btn btn-outline-info m-1 btn-sm">{{ num }}</a>
+            {% endif %}
+        {% endfor %}
+        {% if flinks.has_next %}
+            <a href="?page={{ flinks.next_page_number }}" class="btn btn-outline-info m-1 btn-sm">Next</a>
+            <a href="?page={{ flinks.paginator.num_pages }}" class="btn btn-outline-info m-1 btn-sm">Last</a>
+        {% endif %}
+    {% endif %}
+
+</div>
+
+
 {% endblock %}
