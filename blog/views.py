@@ -67,7 +67,7 @@ def blogView(request):
         out = {'subtitle':'blog not found.'}
         title = '404 blog not found'
     mform = MailingForm()
-    sidetitle = ' -Blog'
+    sidetitle = ' Blog'
     logolink = 'blog/'
     context = {'blog':out,'contactform':mform, 'title':title, 'sidetitle':sidetitle, 'logolink':logolink}
     return render(request,'blogview.html',context=context)
