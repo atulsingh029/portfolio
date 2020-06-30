@@ -46,7 +46,12 @@ def blog(request):
         top3=['This section is empty at this moment.']
     mform = MailingForm()
     vform = VisitorForm()
-    context = {'contactform':mform, 'presenceform':vform,'redirect_to':'blog','top3flinks':top3,'flinks':latest, 'banner':banner}
+    title = 'Blog'
+    sidetitle = ' Blog'
+    logolink = 'blog/'
+    context = {'contactform':mform, 'title':title, 'sidetitle':sidetitle, 'logolink':logolink,
+               'presenceform':vform,'redirect_to':'blog','top3flinks':top3,'flinks':latest,
+               'banner':banner}
     return render(request, 'blog.html',context=context)
 
 
@@ -59,5 +64,9 @@ def blogView(request):
                   'writer': obj[0].writer, 'type': obj[0].type, 'text':obj[0].text}
     except:
         out = {'subtitle':'blog not found.'}
-    context = {'blog':out}
+    mform = MailingForm()
+    title = obj[0].title
+    sidetitle = ' -Blog'
+    logolink = 'blog/'
+    context = {'blog':out,'contactform':mform, 'title':title, 'sidetitle':sidetitle, 'logolink':logolink}
     return render(request,'blogview.html',context=context)

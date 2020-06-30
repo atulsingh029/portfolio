@@ -3,7 +3,7 @@
 
 {% block container %}
     <div class="row">
-        <div class="col-12 col-md-6 m-0 p-0 ">
+        <div class="col-12 col-md-6 m-0 p-0 bgcolor">
             <a href="g/?to={{ banner.linkkey }}">
                 <div class="baselink">
                     <img src="/static/media/{{ banner.image }}" class="img-fluid p-2">
@@ -15,6 +15,8 @@
             </a>
         </div>
         <div class="col-12 col-md-6">
+        <h5 class="mb-0 pb-0">Top Stories</h5>
+        <hr class="m-0 p-1">
             {% for flink in top3flinks %}
                 <a href="g/?to={{ flink.linkkey }}" >
                 <div class="baselink">
