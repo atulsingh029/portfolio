@@ -65,6 +65,7 @@ def blogView(request):
         title = obj[0].title
     except:
         out = {'subtitle':'blog not found.'}
+        title = '404 blog not found'
     mform = MailingForm()
     sidetitle = ' -Blog'
     logolink = 'blog/'
