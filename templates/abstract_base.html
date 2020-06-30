@@ -19,7 +19,7 @@
             <a class="navbar-brand" href="/{{ logolink }}">
                 <img src="https://atulsingh029.github.io/icons/icon.png" width="50" height="50"
                      class="d-inline-block align-middle" alt="" loading="lazy">
-                <span class="pl-1">atul.codes{{ sidetitle }}</span>
+                <span class="pl-1">{{ sidetitle }}</span>
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
                     aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,7 +27,7 @@
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
                 <div class="navbar-nav ">
-                    <a class="nav-item nav-link" href="/">Home</a>
+                    <a class="nav-item nav-link" href="/">Back To Home</a>
                     {% if nav1 %}
                         <a class="nav-item nav-link" href="{{ navlink1 }}">{{ nav1 }}</a>
                     {% endif %}
