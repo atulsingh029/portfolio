@@ -62,10 +62,10 @@ def blogView(request):
         out = {'title': obj[0].title, 'image':obj[0].image,
                   'subtitle': obj[0].subtitle, 'datetime': obj[0].datetime,
                   'writer': obj[0].writer, 'type': obj[0].type, 'text':obj[0].text}
+        title = obj[0].title
     except:
         out = {'subtitle':'blog not found.'}
     mform = MailingForm()
-    title = obj[0].title
     sidetitle = ' -Blog'
     logolink = 'blog/'
     context = {'blog':out,'contactform':mform, 'title':title, 'sidetitle':sidetitle, 'logolink':logolink}
