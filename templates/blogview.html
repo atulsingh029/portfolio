@@ -20,6 +20,6 @@
         {{ blog.subtitle }}
     </div>
     <div class="text-monspace m-1 p-1">
-    <p>{{ blog.text }}</p>
+    <p>{{ blog.text|safe }}</p>
     </div>
 {% endblock %}
