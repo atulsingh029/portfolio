@@ -57,11 +57,12 @@ def blog(request):
 
 def blogView(request):
     goto = request.GET.get('to','')
-    obj = Blog.objects.filter(linkkey=goto)
+    obj = Blog.objects.filter(linkkey=goto, allowed=True)
     try:
         out = {'title': obj[0].title, 'image':obj[0].image,
                   'subtitle': obj[0].subtitle, 'datetime': obj[0].datetime,
-                  'writer': obj[0].writer, 'type': obj[0].type, 'text':obj[0].text}
+                  'writer': obj[0].writer, 'type': obj[0].type, 'text':obj[0].text,
+                   'safe': obj[0].allow_html, 'linkkey': obj[0].linkkey}
         title = obj[0].title
     except:
         out = {'subtitle':'blog not found.'}

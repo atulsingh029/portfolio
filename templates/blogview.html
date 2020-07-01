@@ -20,6 +20,16 @@
         {{ blog.subtitle }}
     </div>
     <div class="text-monspace m-1 p-1">
-    <p>{{ blog.text|safe }}</p>
+    {%  if blog.safe %}
+        {% autoescape off %}
+        <p>{{ blog.text }}</p>
+        {% endautoescape %}
+     {% else %}
+        <p>{{ blog.text }}</p>
+    {% endif %}
     </div>
+    <div class="nav nav-link">
+    <a href="mailto:feedback@atul.codes?subject=Feedback%20key-{{ blog.linkkey }}&body=DoNotEditOrChangeSubject%20WriteYourFeedbackBelow" target= "_blank">feedback</a>
+    </div>
+
 {% endblock %}
