@@ -2,6 +2,8 @@
 {% load static %}
 
 {% block container %}
+
+
     <div class="text-center">
         <h1 class="h2 p-2">{{ blog.title }}</h1>
     </div>
@@ -31,5 +33,39 @@
     <div class="nav nav-link">
     <a href="mailto:feedback@atul.codes?subject=Feedback%20key-{{ blog.linkkey }}&body=DoNotEditOrChangeSubject%20WriteYourFeedbackBelow" target= "_blank">feedback</a>
     </div>
+
+     <h5 class="mb-0 pb-0">Recommended Stories</h5>
+    <hr class="m-0 p-1">
+    {% for flink in flinks %}
+        <a href="?to={{ flink.linkkey }}">
+        <div class="baselink">
+            <div class="d-none d-md-block">
+                <div class="media m-2">
+                  <img src="/static/media/{{ flink.image }}" class="align-self-center mr-3 " alt="..." height="150px" width="150px">
+                  <div class="media-body">
+                    <h5 class="head mt-0">{{ flink.title }}</h5>
+                    <p>{{ flink.subtitle }}</p>
+                    <p>{{ flink.writer }} on {{ flink.datetime }}</p>
+                    <p>-{{ flink.type }}</p>
+                  </div>
+                </div>
+            </div>
+            <div class=" d-md-none m-2 ">
+                <div class="card" >
+                  <div class="card-header p-0 m-0">
+                    <img src="/static/media/{{ flink.image }}" class="card-img-top " alt="...">
+                  </div>
+                  <div class="card-body">
+                    <h5 class="card-title head">{{ flink.title }}</h5>
+                    <p class="card-text">{{ flink.subtitle }}</p>
+                    <p>by- {{ flink.writer }} on {{ flink.datetime }}</p>
+                    <p>-{{ flink.type }}</p>
+                  </div>
+                </div>
+            </div>
+        </div>
+        </a>
+    {% endfor %}
+
 
 {% endblock %}

@@ -67,8 +67,22 @@ def blogView(request):
     except:
         out = {'subtitle':'blog not found.'}
         title = '404 blog not found'
+
+    genre = obj[0].type
+    recommended = Blog.objects.filter(allowed=True, type=genre,)
+    recommended_list = []
+    count = 0
+    for i in recommended:
+        if count == 4:
+            break
+        if i.linkkey == obj[0].linkkey:
+            continue
+        recommended_list.append(i)
+        count = count + 1
+    recommended_list.reverse()
     mform = MailingForm()
     sidetitle = ' Blog'
     logolink = 'blog/'
-    context = {'blog':out,'contactform':mform, 'title':title, 'sidetitle':sidetitle, 'logolink':logolink}
+    context = {'blog':out,'contactform':mform, 'title':title, 'sidetitle':sidetitle, 'logolink':logolink,
+               'flinks':recommended_list}
     return render(request,'blogview.html',context=context)
