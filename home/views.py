@@ -53,8 +53,8 @@ def contact(request):
         send_mail(subject,message,'atul.auth@gmail.com',['atulsinghash@gmail.com',],fail_silently=True)
         Contact.objects.create(email=email, name=name, subject=subject, message=message)
         reply_subject ='Re:'+subject
-        reply_message = 'Hey '+name+",\nThank you for contacting. I have received your message, you will soon hear from me.\nAtul" \
-                                    " Singh\n\n\n<h6>Don't reply to this mail, this is system generated.</h6>"
+        reply_message = 'Hey '+name+",\nThank you for contacting. I have received your message, you will hear from me soon.\nAtul" \
+                                    " Singh\n\n\nDon't reply to this mail, this is system generated."
         send_mail(reply_subject, reply_message, 'atul.auth@gmail.com', [email, ], fail_silently=True)
         return redirect(redir+'/?refer=refer_success'+typ)
     else:
