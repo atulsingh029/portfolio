@@ -27,14 +27,13 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
-                <div class="navbar-nav ">
-                    <a class="nav-item nav-link" href="/how-to">How-To</a>
-                    <a class="nav-item nav-link" href="/blog">Blog</a>
-                    <a class="nav-item nav-link" href="/list_all/?type=projects">Projects</a>
-                    <a class="nav-item nav-link" href="/list_all/?type=certificates">Certificates</a>
+                <div class="navbar-nav">
+                    <a class="nav-item nav-link custom-nav" href="/blog">Blog</a>
+                    <a class="nav-item nav-link custom-nav" href="/list_all/?type=projects">Projects</a>
+                    <a class="nav-item nav-link custom-nav" href="/list_all/?type=certificates">Certificates</a>
                     <!-- Button trigger modal -->
-                    <button type="button" id='contact' class="btn btn-outline-secondary btn-sm" data-toggle="modal"
-                            data-target="#exampleModal">
+                    <button id ="nav-btn" type="button" id='contact' class="btn btn-link" data-toggle="modal"
+                            data-target="#exampleModal" >
                         Contact
                     </button>
                     <!-- end Button trigger modal -->
@@ -294,7 +293,10 @@
                                      class="rounded-circle" height="65px" width="65px">
                             </div>
                             <div class="col-9 mt-2">
-                                <p>To collaborate with me on any project in python, java, django feel free to contact.</p>
+                                <p>To collaborate with me on any project in python, java, django feel free to<button
+                                 type="button" id='contact' class="btn btn-link p-1 pt-0 pb-2" style="color: blue" data-toggle="modal"
+                            data-target="#exampleModal">
+                        contact</button>.</p>
                             </div>
                         </div>
                     </section>
@@ -359,14 +361,7 @@
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-170265899-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'UA-170265899-1');
-</script>
 
 </body>
 </html>
