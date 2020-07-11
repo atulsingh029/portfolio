@@ -28,7 +28,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('blog/',include('blog.urls')),
     path('list_all/', HomeView.list_all, name='list_all'),
-    path('how-to/', include('howto.urls')),
     path('list_all/',include('home.urls')),
 ]
 
