@@ -1,7 +1,7 @@
 from django.shortcuts import render,HttpResponse,redirect
 from .forms import MailingForm,VisitorForm
 from django.core.mail import send_mail
-from .models import Visitor,Contact,Carousel,ProjectCards,Tracking_Logger
+from .models import Visitor,Contact,Carousel,ProjectCards,Tracking_Logger,Certifications
 
 
 def home(request):
@@ -34,8 +34,9 @@ def home(request):
                 ' relevant courses, my involvement in the CS community, and status on different coding websites.' \
                 ' I have also included links to all of my research and projects.'
     introimage = 'https://atulsingh029.github.io/images/dp.jpg'
+    certifiactions = Certifications.objects.filter(allowed=True)
     context = {'contactform':mform, 'presenceform':vform, 'success':success,  'carousels':Carousel.getCarousel(),
-               'list1':twolists[0], 'list2':twolists[1], 'introtext':introtext, 'introimage':introimage, }
+               'list1':twolists[0], 'list2':twolists[1], 'introtext':introtext, 'introimage':introimage, 'certifications':certifiactions}
     return render(request, 'base.html',context=context)
 
 def contact(request):
@@ -92,21 +93,8 @@ def list_all(request):
         type = request.GET['type']
     except:
         return redirect('/')
-    if type == 'certificates':
-        heading = ['Name', 'IssuedBy', 'Certificate']
-        items = []
-        out = Carousel.getCarousel()
-        for i in out:
-            if i['iscertificate']:
-                temp = {'text1':i['name'], 'text2':i['issuedby'], 'link1':i['carouselapplink'],'btn1':'view certificate',}
-                items.append(temp)
-        mform = MailingForm()
-        vform = VisitorForm()
-        context = {'headings': heading, 'items': items, 'list_type': type, 'contactform':mform, 'presenceform':vform,
-                   'redirect_to':redirectto, 'nav1':'Projects', 'navlink1':'/list_all/?type=projects', 'success':success,
-                   }
-        return render(request, 'list.html', context=context)
-    elif type == 'projects':
+
+    if type == 'projects':
         heading = ['Name', 'AppLink', 'SourceCode']
         items = []
         mform = MailingForm()
@@ -121,7 +109,7 @@ def list_all(request):
             temp={'text1':i['name'], 'link1':applink,'btn1':'open','link2':sourcecode,'btn2':'view','status1':i['appstatus'], 'status2':i['sourcestatus']}
             items.append(temp)
         context = {'headings': heading, 'items': items, 'list_type': type, 'contactform':mform, 'presenceform':vform,
-                   'redirect_to':redirectto, 'nav1':'Certificates', 'navlink1':'/list_all/?type=certificates',
+                   'redirect_to':redirectto,
                    'success':success,}
         return render(request, 'list.html', context=context)
     else:

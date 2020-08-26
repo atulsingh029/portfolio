@@ -32,7 +32,6 @@ class Carousel(models.Model):
     active = models.CharField(max_length=6,choices=CHOICES, null=True, blank=True, default=None)
     issuedby = models.CharField(max_length=130, null=False, blank=False)
     allowed = models.BooleanField(default=False)
-    iscertificate = models.BooleanField(default=False)
 
 
     @staticmethod
@@ -43,7 +42,7 @@ class Carousel(models.Model):
             if i.allowed:
                 temp = {'carouselimg': i.carouselimg, 'carouselapplink': i.carouselapplink,
                         'carouselappname': i.carouselappname, 'active': i.active,
-                        'issuedby':i.issuedby, 'iscertificate':i.iscertificate,
+                        'issuedby':i.issuedby,
                         'name':i.name,}
                 craousels.append(temp)
         return craousels
@@ -80,6 +79,17 @@ class ProjectCards(models.Model):
                         }
                 projects.append(temp)
         return projects
+
+
+class Certifications(models.Model):
+    name = models.CharField(max_length=120)
+    c_link = models.CharField(max_length=255, null=True, blank=True)
+    issuedby = models.CharField(max_length=130, null=False, blank=False)
+    issue_date = models.DateField(null=True, blank=True, default=None)
+    expiry_date=models.DateField(null=True,blank=True,default=None)
+    text = models.CharField(max_length=200, null=True,blank=True)
+    allowed = models.BooleanField(default=False)
+
 
 
 class Tracking_Logger(models.Model):

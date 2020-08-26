@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Visitor,Contact,Carousel,ProjectCards,Tracking_Logger
+from .models import Visitor,Contact,Carousel,ProjectCards,Tracking_Logger,Certifications
 
 
 # Register your models here.
@@ -18,6 +18,13 @@ class CustomContact(admin.ModelAdmin):
 
 
 admin.site.register(Contact,CustomContact)
+
+class CustomCertifications(admin.ModelAdmin):
+    list_display = ['name', 'c_link', 'issue_date', 'expiry_date', 'issuedby', 'allowed']
+    search_fields = ['name',]
+
+
+admin.site.register(Certifications,CustomCertifications)
 
 
 class CustomCraousel(admin.ModelAdmin):

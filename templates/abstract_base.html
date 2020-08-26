@@ -21,7 +21,7 @@
                      class="d-inline-block align-middle" alt="" loading="lazy">
                 <span class="pl-1">{{ sidetitle }}</span>
             </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            <button class="navbar-toggler" type="button" id="nav_toggler" data-toggle="collapse" data-target="#navbarNavAltMarkup"
                     aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -96,10 +96,18 @@
                                      class="rounded-circle" height="65px" width="65px">
                             </div>
                             <div class="col-9 mt-2">
-                                <p>To collaborate with me on any project in python, java, django feel free to<button
-                                 type="button" id='contact' class="btn btn-link p-1 pt-0 pb-2" style="color: blue" data-toggle="modal"
-                            data-target="#exampleModal">
-                        contact</button>.</p>
+                                <p>To collaborate with me on project in Java, Python, Django feel free to<button
+                                 type="button" id="contact_btn" class="btn btn-link m-0 p-0 pb-1 pl-1" style="color: blue"> contact</button>.</p>
+                                <script>
+                                    document.getElementById("contact_btn").addEventListener('click',function (){
+                                        const toggler = document.getElementById("nav_toggler");
+                                        const contact = document.getElementById("contact");
+                                        if(toggler.getAttribute("aria-expanded") ==='false'){
+                                            toggler.click();
+                                        }
+                                        contact.click();
+                                    });
+                                </script>
                             </div>
                         </div>
                     </section>
