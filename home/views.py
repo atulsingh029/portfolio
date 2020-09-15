@@ -14,8 +14,8 @@ def home(request):
     except:
         pass
     try:
-        if request.GET['refer']:
-            refer = request.GET['refer']
+        if request.META.get('HTTP_REFERER'):
+            refer = request.META.get('HTTP_REFERER')
             if refer == '':
                 refer = 'Anonymous'
     except:
@@ -71,12 +71,7 @@ def presence(request):
     if request.method == 'POST':
         email = request.POST['email']
         name = request.POST['name']
-        try:
-            status = request.POST['subscribe']
-            subscribe = True
-        except:
-            subscribe = False
-        Visitor.objects.create(email=email, name=name, subscribe=subscribe)
+        Visitor.objects.create(email=email, name=name)
         return redirect(redir+typ)
     else:
         return redirect('/')
