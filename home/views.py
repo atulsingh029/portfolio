@@ -18,6 +18,11 @@ def home(request):
             refer = request.META.get('HTTP_REFERER')
             if refer == '':
                 refer = 'Anonymous'
+        else:
+            if request.GET['r']:
+                refer = request.GET['r']
+                if refer == '':
+                    refer = 'Anonymous'
     except:
         refer = 'Anonymous'
 
