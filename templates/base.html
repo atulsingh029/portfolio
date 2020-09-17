@@ -5,8 +5,8 @@
 <head>
     <meta charset="UTF-8">
     <link rel="shortcut icon" href="https://atulsingh029.github.io/icons/favicon.ico">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href={% static 'stylesheet/base.css' %}>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
@@ -28,6 +28,7 @@
                 <div class="navbar-nav">
                     <a class="nav-item nav-link custom-nav" href="/blog">Blog</a>
                     <a class="nav-item nav-link custom-nav" href="/list_all/?type=projects">Projects</a>
+                    <a class="nav-item nav-link custom-nav" href="/list_all/?type=certificates">Certifications</a>
                     <!-- Button trigger modal -->
                     <button type="button" id='contact' class="btn btn-link" data-toggle="modal"
                             data-target="#exampleModal" >
@@ -177,84 +178,44 @@
                   <p><a href="{{ certification.c_link }}" target="_blank">View Certificate</a> </p>
                 </div>
                 {% endfor %}
+              <a href="/list_all/?type=certificates">
+                    <button type="button" class="btn btn-sm btn-light mb-2"><i class="fa fa-list"></i> List All</button>
+                </a>
               </div>
             </div>
           </div>
+
         </section>
     <!-- End Education And Certification -->
 
 
 
     <!-- projects -->
-<div class="card mb-4" id="projects">
+<div class="card mb-2" id="projects">
   <div class="card-header">
     <h5 class="resume-title text-center" style="font-size: 20px">Projects</h5>
   </div>
   <div class="card-body ">
-    <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            <div class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner">
-                    {% for project in list1 %}
-                  <div class="carousel-item {{ project.active }}" data-interval="10000">
-                            <div class="card mb-2" style="max-width: 540px;">
-                                <div class="row">
-                                  <div class="col-4 bg-light">
-                                    <img src="{{ project.icon }}" class=" img-fluid text-center" alt="icon">
-                                  </div>
-                                  <div class="col-8 bg-light">
-                                    <div class="card-body ">
-                                      <h5 class="card-title">{{ project.name }}</h5>
-                                        <div class="d-none d-sm-none d-md-block">
-                                      <p class="">{{ project.description }}</p></div>
-                                      <div class="btn-group pt-4 pb-1" role="group" aria-label="Basic example">
-                                          <a href="{{ project.applink }}" class="btn btn-secondary btn-sm {{ project.appstatus }}" target="_blank">Go To App</a>
-                                          <a href="{{ project.sourcecode }}" class="btn btn-secondary btn-sm  {{ project.sourcestatus }}" target="_blank">Source Code</a>
-                                        </div>
-                                    </div>
-                                  </div>
-                                </div>
-                            </div>
-                  </div>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-        <div class="d-none d-sm-none d-md-block col-md-6 col-lg-6 col-xl-6">
-            <div class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner">
-                    {% for project in list2 %}
-                  <div class="carousel-item {{ project.active }}" data-interval="10000">
-                            <div class="card mb-2" style="max-width: 540px;">
-                                <div class="row">
-                                  <div class="col-4 bg-light">
-                                    <img src="{{ project.icon }}" class=" img-fluid text-center" alt="icon">
-                                  </div>
-                                  <div class="col-8 bg-light">
-                                    <div class="card-body ">
-                                      <h5 class="card-title">{{ project.name }}</h5>
-                                        <div class="d-none d-sm-none d-md-block">
-                                      <p class="">{{ project.description }}</p></div>
-                                      <div class="btn-group pt-4 pb-1" role="group" aria-label="Basic example">
-                                          <a href="{{ project.applink }}" class="btn btn-secondary btn-sm {{ project.appstatus }}" target="_blank">Go To App</a>
-                                          <a href="{{ project.sourcecode }}" class="btn btn-secondary btn-sm  {{ project.sourcestatus }}" target="_blank">Source Code</a>
-                                        </div>
-                                    </div>
-                                  </div>
-                                </div>
-                            </div>
-                  </div>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-    </div>
-  <div class="mb-0" align="right">
-                <a href="/list_all/?type=projects">
-                    <button type="button" class="btn btn-sm btn-light">List All</button>
-                </a>
-            </div>
+  <div class="row row-cols row-cols-md-4">
+      {% for project in projects %}
+          <div class="card p-1" style="width: 20em">
+              <img class="card-img-top img-responsive" src="{{ project.icon }}" style="height: 10em;  overflow: hidden" >
+              <div class="card-body" style="height: 10em; overflow: hidden">
+                <h5 class="card-title">{{ project.name }}</h5>
+                <p class="card-text">{{ project.description }}</p>
+              </div>
+              <div class="card-footer text-center">
+                  <a href="{{ project.moreinfo }}" target="_blank" class="btn btn-sm btn-success">More</a>
+                  <a href="{{ project.applink }}" target="_blank" class="btn btn-sm btn-primary {{ project.appstatus }}">View</a>
+                  <a href="{{ project.sourcecode }}" target="_blank" class="btn btn-sm btn-info {{ project.sourcestatus }}">Code</a>
+              </div>
+          </div>
+      {% endfor %}
   </div>
+  </div>
+<a href="/list_all/?type=projects" class="m-auto mt-1 mb-1">
+      <button type="button" class="btn btn-sm btn-light mb-2 mt-0"><i class="fa fa-list"></i> List All</button>
+  </a>
 </div>
     <!-- end projects -->
 

@@ -58,30 +58,15 @@ class ProjectCards(models.Model):
     name = models.CharField(max_length=255, null=False, blank=False)
     sourcecode = models.URLField(null=True, blank=True, default=None)
     applink = models.URLField(null=True, blank=True, default=None)
+    moreinfo = models.URLField(null=True, blank=True, default=None)
     icon = models.URLField(null=True, blank=True, default='https://atulsingh029.github.io/icons/pcdefault.png')
     description = models.CharField(max_length=160, null=True, blank=True, default='')
     allowed = models.BooleanField(default=False)
-    active = models.CharField(max_length=6, choices=CHOICES, null=True, blank=True, default=None)
     appstatus = models.CharField(max_length=8, choices=CSS, null=True, blank=True, default=None)
     sourcestatus = models.CharField(max_length=8, choices=CSS, null=True, blank=True, default=None)
 
 
-    @staticmethod
-    def getProjectCards():
-        projectObj = ProjectCards.objects.all()
-        projects = []
-        for i in projectObj:
-                temp = {'name': i.name, 'applink': i.applink,
-                        'sourcecode': i.sourcecode, 'active': i.active,
-                        'icon': i.icon, 'description': i.description,
-                        'appstatus' : i.appstatus, 'sourcestatus': i.sourcestatus,
-                        'allowed':i.allowed
-                        }
-                projects.append(temp)
-        return projects
-
-
-class Certifications(models.Model):
+class Certification(models.Model):
     name = models.CharField(max_length=120)
     c_link = models.CharField(max_length=255, null=True, blank=True)
     issuedby = models.CharField(max_length=130, null=False, blank=False)

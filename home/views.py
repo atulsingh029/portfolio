@@ -1,7 +1,8 @@
 from django.shortcuts import render,HttpResponse,redirect
 from .forms import MailingForm,VisitorForm
 from django.core.mail import send_mail
-from .models import Visitor,Contact,Carousel,ProjectCards,Tracking_Logger,Certifications
+from .models import Visitor,Contact,Carousel,ProjectCards,Tracking_Logger,Certification
+import random
 
 
 def home(request):
@@ -28,20 +29,18 @@ def home(request):
 
     mform = MailingForm()
     vform = VisitorForm()
-    temp = []
-    for card in ProjectCards.getProjectCards():
-        if card['allowed'] == True:
-            temp.append(card)
+    temp = ProjectCards.objects.filter(allowed=True)
     Tracking_Logger.objects.create(ip = ip, refer=refer)
-    twolists = [temp[0:int(len(temp)/2)],temp[int(len(temp)/2):int(len(temp))]]
     introtext = 'I am Atul Singh, a computer science student currently in 3rd year of graduation. ' \
                 'The sections below highlight my experience in Computer Science - and it is forever growing! I have included' \
                 ' relevant courses, my involvement in the CS community, and status on different coding websites.' \
                 ' I have also included links to all of my research and projects.'
     introimage = 'https://atulsingh029.github.io/images/dp.jpg'
-    certifiactions = Certifications.objects.filter(allowed=True)
+    certification = Certification.objects.filter(allowed=True)
+    certifications = random.choices(certification, k=4)
+    projects = random.choices(temp, k=4)
     context = {'contactform':mform, 'presenceform':vform, 'success':success,  'carousels':Carousel.getCarousel(),
-               'list1':twolists[0], 'list2':twolists[1], 'introtext':introtext, 'introimage':introimage, 'certifications':certifiactions}
+               'projects':projects, 'introtext':introtext, 'introimage':introimage, 'certifications':certifications}
     return render(request, 'base.html',context=context)
 
 def contact(request):
@@ -94,19 +93,35 @@ def list_all(request):
     except:
         return redirect('/')
 
+    if type == 'certificates':
+        heading = ['Name', 'IssuedBy', 'Certificate']
+        items = []
+        out = Certification.objects.filter(allowed=True)
+        for i in out:
+            temp = {'text1': i.name, 'text2': i.issuedby, 'link1': i.c_link,
+                        'btn1': 'view certificate', }
+            items.append(temp)
+        mform = MailingForm()
+        vform = VisitorForm()
+        context = {'headings': heading, 'items': items, 'list_type': type, 'contactform': mform, 'presenceform': vform,
+                   'redirect_to': redirectto, 'nav1': 'Projects', 'navlink1': '/list_all/?type=projects',
+                   'success': success,
+                   }
+        return render(request, 'list.html', context=context)
+
     if type == 'projects':
         heading = ['Name', 'AppLink', 'SourceCode']
         items = []
         mform = MailingForm()
         vform = VisitorForm()
-        out = ProjectCards.getProjectCards()
+        out = ProjectCards.objects.filter(allowed=True)
         for i in out:
-            if i['applink'] is None:
+            if i.applink is None:
                 applink='#'
             else:
-                applink = i['applink']
-            sourcecode = i['sourcecode']
-            temp={'text1':i['name'], 'link1':applink,'btn1':'open','link2':sourcecode,'btn2':'view','status1':i['appstatus'], 'status2':i['sourcestatus']}
+                applink = i.applink
+            sourcecode = i.sourcecode
+            temp={'text1':i.name, 'link1':applink,'btn1':'open','link2':sourcecode,'btn2':'view','status1':i.appstatus, 'status2':i.sourcestatus}
             items.append(temp)
         context = {'headings': heading, 'items': items, 'list_type': type, 'contactform':mform, 'presenceform':vform,
                    'redirect_to':redirectto,
