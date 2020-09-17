@@ -37,8 +37,8 @@ def home(request):
                 ' I have also included links to all of my research and projects.'
     introimage = 'https://atulsingh029.github.io/images/dp.jpg'
     certification = Certification.objects.filter(allowed=True)
-    certifications = random.choices(certification, k=4)
-    projects = random.choices(temp, k=4)
+    certifications = random.sample(list(certification), 4)
+    projects = random.sample(list(temp), 4)
     context = {'contactform':mform, 'presenceform':vform, 'success':success,  'carousels':Carousel.getCarousel(),
                'projects':projects, 'introtext':introtext, 'introimage':introimage, 'certifications':certifications}
     return render(request, 'base.html',context=context)
