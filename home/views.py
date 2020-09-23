@@ -75,7 +75,7 @@ def presence(request):
     if request.method == 'POST':
         email = request.POST['email']
         name = request.POST['name']
-        Visitor.objects.create(email=email, name=name)
+        Visitor.objects.create(email=email, name=name, subscribe=False)
         return redirect(redir+typ)
     else:
         return redirect('/')
