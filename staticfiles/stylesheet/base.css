@@ -1,0 +1,40 @@
+.baselink {
+      text-decoration: none;
+      color: royalblue;
+      font-weight: bold;
+
+  }
+
+.head {
+      color: darkgoldenrod;
+      font-weight: 600;
+    font-size: x-large;
+  }
+
+a:hover {
+      text-decoration: none;
+
+  }
+
+.baselink:hover {
+      color: royalblue;
+      background-color: #f4f4f4;
+      text-decoration: none;
+  }
+
+.bgcolor :hover{
+    transform: scale(1.003);
+}
+
+a.nav-item.nav-link.custom-nav{
+    color: white;
+}
+
+button.btn.btn-link{
+    text-decoration: none;
+    color: white;
+}
+button.btn.btn-link:hover{
+    color: #c0c5c7;
+}
+

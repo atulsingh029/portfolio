@@ -1,0 +1,90 @@
+.resume .resume-title {
+  font-size: 20px;
+  font-weight: 500;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  color: #050d18;
+}
+
+.resume .resume-item {
+  padding: 0 0 20px 20px;
+  margin-top: -2px;
+  border-left: 2px solid #1f5297;
+  position: relative;
+}
+
+.resume .resume-item h4 {
+  line-height: 16px;
+  font-size: 16px;
+  font-weight: 400;
+  text-transform: uppercase;
+  font-family: "Poppins", sans-serif;
+  color: #050d18;
+  margin-bottom: 10px;
+}
+
+.resume .resume-item h5 {
+  font-size: 12px;
+  background: #e4edf9;
+  padding: 5px 15px;
+  display: inline-block;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.resume .resume-item ul {
+  padding-left: 20px;
+}
+
+.resume .resume-item ul li {
+  padding-bottom: 10px;
+}
+
+.resume .resume-item:last-child {
+  padding-bottom: 0;
+}
+
+.resume .resume-item::before {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-radius: 50px;
+  left: -9px;
+  top: 0;
+  background: #fff;
+  border: 2px solid #1f5297;
+}
+
+#main-container {
+  margin-top: 55px;
+}
+
+.collab-banner {
+  max-width: 500px;
+  height: 100px;
+  background-image: linear-gradient(45deg,azure, bisque);
+  border-radius: 100px;
+  box-shadow: 2px 4px #bbbbbb;
+}
+
+.collab-banner h6 {
+  font-size: 16px;
+}
+
+#collab_btn {
+  font-size: 30px;
+}
+
+.navigation {
+  margin: 0;
+  padding: 0;
+  background-image: linear-gradient(45deg,azure, bisque);
+  height: 50px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  overflow: hidden;
+  z-index: 1;
+}
+

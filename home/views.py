@@ -1,19 +1,13 @@
-from django.shortcuts import render,HttpResponse,redirect
-from .forms import MailingForm,VisitorForm
+from django.shortcuts import render, redirect
+from .forms import MailingForm, SubscriberForm
 from django.core.mail import send_mail
-from .models import Visitor,Contact,Carousel,ProjectCards,Tracking_Logger,Certification
+from .models import *
 import random
 
 
 def home(request):
-    success = ''
-    refer = ''
     ip = get_client_ip(request)
-    try:
-        if request.GET['refer'] == 'refer_success':
-            success = "Thank you for contacting, I shall respond back soon to your provided email."
-    except:
-        pass
+    refer=''
     try:
         if request.META.get('HTTP_REFERER'):
             refer = request.META.get('HTTP_REFERER')
@@ -27,21 +21,23 @@ def home(request):
     except:
         refer = 'Anonymous'
 
-    mform = MailingForm()
-    vform = VisitorForm()
-    temp = ProjectCards.objects.filter(allowed=True)
-    Tracking_Logger.objects.create(ip = ip, refer=refer)
-    introtext = 'I am Atul Singh, a computer science student currently in 3rd year of graduation. ' \
-                'The sections below highlight my experience in Computer Science - and it is forever growing! I have included' \
-                ' relevant courses, my involvement in the CS community, and status on different coding websites.' \
-                ' I have also included links to all of my research and projects.'
-    introimage = 'https://atulsingh029.github.io/images/dp.jpg'
-    certification = Certification.objects.filter(allowed=True)
-    certifications = random.sample(list(certification), 4)
-    projects = random.sample(list(temp), 4)
-    context = {'contactform':mform, 'presenceform':vform, 'success':success,  'carousels':Carousel.getCarousel(),
-               'projects':projects, 'introtext':introtext, 'introimage':introimage, 'certifications':certifications}
-    return render(request, 'base.html',context=context)
+    Logger.objects.create(ip=ip, refer=refer)
+    profile = Profile.objects.get(email='atulsingh29@protonmail.com')
+    ach_badges = Badge.objects.filter(allowed=True, type='achievement')
+    tech_stack = Badge.objects.filter(allowed=True, type='tech-stack')
+    contact_buttons = ContactIcon.objects.filter(profile=profile)
+    c = Certification.objects.filter(allowed=True)
+    if len(c) < 3:
+        certifications = c
+    else:
+        certifications = random.sample(list(c), 3)
+    print(certifications)
+    context = {
+        'title':'Atul Singh : Portfolio', 'contact_buttons':contact_buttons, 'profile':profile, 'achievements':ach_badges,
+        'tech_stack':tech_stack, 'certifications' : certifications
+    }
+    return render(request, 'portfolio.html', context=context)
+
 
 def contact(request):
     try:
@@ -55,7 +51,7 @@ def contact(request):
         name = request.POST['name']
         subject = request.POST['subject']
         message = request.POST['message']+'\n\nSENDER : \n'+name+'\n'+email
-        send_mail(subject,message,'atul.auth@gmail.com',['atulsinghash@gmail.com',],fail_silently=True)
+        send_mail(subject,message,'atul.auth@gmail.com', ['atulsinghash@gmail.com', ], fail_silently=True)
         Contact.objects.create(email=email, name=name, subject=subject, message=message)
         reply_subject ='Re:'+subject
         reply_message = 'Hey '+name+",\nThank you for contacting. I have received your message, you will hear from me soon.\nAtul" \
@@ -65,71 +61,16 @@ def contact(request):
     else:
         return redirect('/')
 
+
 def presence(request):
-    try:
-        redir = '/'+request.GET['redir']
-        typ = '/?type='+request.GET['type']
-    except:
-        redir = '/'
-        typ = ''
     if request.method == 'POST':
-        email = request.POST['email']
-        name = request.POST['name']
-        Visitor.objects.create(email=email, name=name, subscribe=False)
-        return redirect(redir+typ)
+        if request.is_ajax():
+            email = request.POST['email']
+            name = request.POST['name']
+            Visitor.objects.create(email=email, name=name, subscribe=False)
+            return redirect(redirect)
     else:
         return redirect('/')
-
-
-def list_all(request):
-    try:
-        if request.GET['refer'] == 'refer_success':
-            success = "Thank you for contacting, I shall respond back soon to your provided email."
-    except:
-        success = ''
-    redirectto = 'list_all'
-    try:
-        type = request.GET['type']
-    except:
-        return redirect('/')
-
-    if type == 'certificates':
-        heading = ['Name', 'IssuedBy', 'Certificate']
-        items = []
-        out = Certification.objects.filter(allowed=True)
-        for i in out:
-            temp = {'text1': i.name, 'text2': i.issuedby, 'link1': i.c_link,
-                        'btn1': 'view certificate', }
-            items.append(temp)
-        mform = MailingForm()
-        vform = VisitorForm()
-        context = {'headings': heading, 'items': items, 'list_type': type, 'contactform': mform, 'presenceform': vform,
-                   'redirect_to': redirectto, 'nav1': 'Projects', 'navlink1': '/list_all/?type=projects',
-                   'success': success,
-                   }
-        return render(request, 'list.html', context=context)
-
-    if type == 'projects':
-        heading = ['Name', 'AppLink', 'SourceCode']
-        items = []
-        mform = MailingForm()
-        vform = VisitorForm()
-        out = ProjectCards.objects.filter(allowed=True)
-        for i in out:
-            if i.applink is None:
-                applink='#'
-            else:
-                applink = i.applink
-            sourcecode = i.sourcecode
-            temp={'text1':i.name, 'link1':applink,'btn1':'open','link2':sourcecode,'btn2':'view','status1':i.appstatus, 'status2':i.sourcestatus}
-            items.append(temp)
-        context = {'headings': heading, 'items': items, 'list_type': type, 'contactform':mform, 'presenceform':vform,
-                   'redirect_to':redirectto,
-                   'success':success,}
-        return render(request, 'list.html', context=context)
-    else:
-        return redirect('/')
-
 
 
 def get_client_ip(request):
@@ -139,3 +80,19 @@ def get_client_ip(request):
     else:
         ip = request.META.get('REMOTE_ADDR')
     return ip
+
+
+def collab(request):
+    return render(request, 'collab.html')
+
+
+def projects(request):
+    return render(request, 'project.html')
+
+
+def certifications(request):
+    pass
+
+
+def collab_form(request,id):
+    pass

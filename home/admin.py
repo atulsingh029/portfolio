@@ -1,8 +1,7 @@
 from django.contrib import admin
-from .models import Visitor,Contact,Carousel,ProjectCards,Tracking_Logger,Certification
+from .models import *
 
 
-# Register your models here.
 class CustomVisitor(admin.ModelAdmin):
     list_display = ['name', 'email', 'subscribe']
     list_filter = ('subscribe', 'date')
@@ -19,6 +18,7 @@ class CustomContact(admin.ModelAdmin):
 
 admin.site.register(Contact,CustomContact)
 
+
 class CustomCertification(admin.ModelAdmin):
     list_display = ['name', 'c_link', 'issue_date', 'expiry_date', 'issuedby', 'allowed']
     search_fields = ['name',]
@@ -27,25 +27,38 @@ class CustomCertification(admin.ModelAdmin):
 admin.site.register(Certification,CustomCertification)
 
 
-class CustomCraousel(admin.ModelAdmin):
+class CustomProject(admin.ModelAdmin):
     list_display = ('name', 'allowed')
     list_filter = ('allowed',)
     search_fields = ('name',)
 
 
-admin.site.register(Carousel,CustomCraousel)
-
-
-class CustomProjectCard(admin.ModelAdmin):
-    list_display = ('name', 'allowed')
-    list_filter = ('allowed',)
-    search_fields = ('name',)
-
-admin.site.register(ProjectCards,CustomProjectCard)
+admin.site.register(Project,CustomProject)
 
 
 class CustomTrackingLogger(admin.ModelAdmin):
     list_display = ('refer', 'ip', 'datetime')
     search_fields = ('refer',)
 
-admin.site.register(Tracking_Logger,CustomTrackingLogger)
+
+admin.site.register(Logger, CustomTrackingLogger)
+
+
+class CustomProfile(admin.ModelAdmin):
+    list_display = ('name', 'email', 'phone')
+    search_fields = ('name', 'email')
+
+
+admin.site.register(Profile, CustomProfile)
+
+
+admin.site.register(ContactIcon)
+
+
+admin.site.register(Badge)
+
+
+admin.site.register(CollaboratorVacancy)
+
+
+admin.site.register(CollaboratorApplication)

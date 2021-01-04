@@ -4,9 +4,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="shortcut icon" href="https://atulsingh029.github.io/icons/favicon.ico">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="shortcut icon" href="{% static 'icons/favicon.ico' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href={% static 'stylesheet/base.css' %}>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
@@ -28,50 +27,9 @@
             <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
                 <div class="navbar-nav ">
                     <a class="nav-item nav-link custom-nav" href="/">Back To Home</a>
-                    {% if nav1 %}
-                        <a class="nav-item nav-link custom-nav" href="{{ navlink1 }}">{{ nav1 }}</a>
-                    {% endif %}
-                    {% if nav2 %}
-                        <a class="nav-item nav-link custom-nav" href="{{ navlink2 }}">{{ nav2 }}</a>
-                    {% endif %}
-                    {% if nav3 %}
-                        <a class="nav-item nav-link custom-nav" href="{{ navlink3 }}">{{ nav3 }}</a>
-                    {% endif %}
-                    <!-- Button trigger modal -->
-                    <button type="button" id='contact' class="btn btn-link" data-toggle="modal"
-                            data-target="#exampleModal" >
-                        Contact
-                    </button>
-                    <!-- end Button trigger modal -->
-                    <!-- Modal -->
-                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-                         aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Contact Now!</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <form method="post" action="/c/?redir={{ redirect_to }}&type={{ list_type }}">
-                                    {% csrf_token %}
-                                    <div class="modal-body justify-content-center">
-                                        {{ contactform|crispy }}
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">
-                                            Close
-                                        </button>
-                                        <button type="submit" class="btn btn-primary btn-sm">Send Message</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- end Modal -->
-
-
+                    {% for item in navItems %}
+                        <a class="nav-item nav-link custom-nav" href="{{ item.link }}">{{ item.text }}</a>
+                    {% endfor %}
                 </div>
             </div>
         </div>
@@ -92,43 +50,19 @@
                     <section>
                         <div class="row">
                             <div class="col-2 pl-2">
-                                <img src="https://atulsingh029.github.io/images/thumb.jpg" alt=""
+                                <img src="{{ profilePicture }}" alt=""
                                      class="rounded-circle" height="65px" width="65px">
                             </div>
                             <div class="col-9 mt-2">
-                                <p>To collaborate with me on project in Java, Python, Django feel free to<button
-                                 type="button" id="contact_btn" class="btn btn-link m-0 p-0 pb-1 pl-1" style="color: blue"> contact</button>.</p>
-                                <script>
-                                    document.getElementById("contact_btn").addEventListener('click',function (){
-                                        const toggler = document.getElementById("nav_toggler");
-                                        const contact = document.getElementById("contact");
-                                        if(toggler.getAttribute("aria-expanded") ==='false'){
-                                            toggler.click();
-                                        }
-                                        contact.click();
-                                    });
-                                </script>
+                                <p>To collaborate with me feel free to submit project details through<button
+                                 type="button" id="collaboration_btn" class="btn btn-link m-0 p-0 pb-1 pl-1" style="color: blue"> collaboration form</button>. To contact me hit the <button
+                                 type="button" id="contact_btn" class="btn btn-link m-0 p-0 pb-1 pl-1" style="color: blue">contact</button> button.</p>
                             </div>
                         </div>
                     </section>
                     <section>
                         <h4>Connect With Me!</h4>
                         <ul class="nav">
-                            <li class="nav-item">
-                                <a class="nav-link active" href="https://instagram.com/atulsingh.29"><img
-                                        src="https://atulsingh029.github.io/icons/insta.png" alt="Instagram"
-                                        height="25px" width="25px"></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link active" href="https://github.com/atulsingh029"><img
-                                        src="https://atulsingh029.github.io/icons/git.png" alt="GitHub" width="25px"
-                                        height="25px"></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link active" href="https://linkedin.com/in/atulsingh29"><img
-                                        src="https://atulsingh029.github.io/icons/linkedin.png" alt="Linkedin"
-                                        width="25px" height="25px"></a>
-                            </li>
                             <li class="nav-item">
                                 <a class="nav-link active" href="mailto:atul@atul.codes"><img
                                         src="https://atulsingh029.github.io/icons/mail.png" alt="Mail"
@@ -142,13 +76,13 @@
                     {% if presenceform %}
                         <div class="card col-12 col-sm-10 p-0">
                         <div class="card-header">
-                            Let me know your presence
+                            <h5 class="pt-2">Subscribe to my blog alerts, it's great!</h5>
                         </div>
                         <div class="card-body">
-                            <form method="post" action="/p/?redir={{ redirect_to }}&type={{ list_type }}">
+                            <form method="post" action="">
                                 {% csrf_token %}
                                 {{ presenceform|crispy }}
-                                <button class="btn btn-outline-secondary btn-sm" type="submit">Submit</button>
+                                <button class="btn btn-outline-secondary btn-sm mt-1" type="submit">Subscribe</button>
                             </form>
                         </div>
                     </div>
@@ -164,16 +98,5 @@
     <p>
 </footer>
 <!-- end footer tag -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-        crossorigin="anonymous"></script>
-
-
 </body>
 </html>

@@ -1,5 +1,5 @@
 from django.shortcuts import render,HttpResponse
-from home.forms import VisitorForm,MailingForm
+from home.forms import SubscriberForm,MailingForm
 from .models import Blog
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
@@ -45,7 +45,7 @@ def blog(request):
     if len(top3) == 0:
         top3=['This section is empty at this moment.']
     mform = MailingForm()
-    vform = VisitorForm()
+    vform = SubscriberForm()
     title = 'Blog'
     sidetitle = ' Blog'
     logolink = 'blog/'
