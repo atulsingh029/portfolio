@@ -1,0 +1,115 @@
+{% extends 'abstract_blog.html' %}
+{% load static %}
+{% block head_container %}
+    <link rel="stylesheet" href="{% static 'stylesheet/blog.css' %}">
+{% endblock %}
+{% block main_container %}
+    <div class="row">
+        <div class="col-12 col-sm-12 col-lg-6">
+            <div class="main-story-card">
+                <a href="g/?to={{ main_story.linkkey }}" class="menu_anchor">
+                    <img src="{{ main_story.image }}" alt="{{ main_story.title }}" class="img-fluid">
+                    <h1 class="main-story-title">{{ main_story.title }}</h1>
+                    <p class="main-story-detail">By : {{ main_story.writer }} On {{ main_story.datetime }}</p>
+                    <p class="main-story-subtitle">{{ main_story.subtitle }}</p>
+                </a>
+            </div>
+        </div>
+
+        <div class="col-12 d-lg-none">
+            <h5 class="mt-2 mb-1 p-0">Tags</h5>
+            {% for tag in topics %}
+                <a class="btn btn-outline-primary m-1 btn-sm" href="/blog/get/tag?key={{ tag }}">{{ tag }}</a>
+            {% endfor %}
+        </div>
+
+        <div class="col-12 col-sm-12 col-lg-6">
+            <h2 class="mt-2 mt-lg-0">Top Stories</h2>
+            <hr>
+                {% for story in top_stories %}
+                    <div class="top-story-card">
+                        <a href="g/?to={{ story.linkkey }}" class="menu_anchor">
+                            <div class="row">
+                                <div class="col-8">
+                                    <p class="story-title m-0">{{ story.title }}</p>
+                                    <p class="story-detail p-0 m-0">By : {{ story.writer }} on {{ story.datetime }}</p>
+                                    <p class="story-subtitle">{{ story.subtitle }}</p>
+                                </div>
+                                <div class="col-4">
+                                    <img src="{{ story.image.url }}" alt="{{ main_story.title }}" class="img-thumbnail top-story-image">
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 d-lg-none">
+                <h5 class="mt-2 mb-1 p-0">Blog Series</h5>
+                {% for topic in series %}
+                    <a class="btn btn-outline-info btn-sm m-1" href="/blog/get/series?key={{ topic }}">{{ topic }}</a>
+                {% endfor %}
+        </div>
+        <div class="col">
+            <h2 class="mt-2 mt-lg-0" id="latest-stories">Latest Stories</h2>
+        <hr>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-lg-8">
+                {% for story in latest_stories %}
+                    <div class="top-story-card">
+                        <a href="g/?to={{ story.linkkey }}" class="menu_anchor">
+                            <div class="row">
+                                <div class="col-8">
+                                    <p class="story-title m-0 pl-2">{{ story.title }}</p>
+                                    <p class="story-detail m-0 pl-2">By : {{ story.writer }} on {{ story.datetime }}</p>
+                                    <p class="story-subtitle pl-2">{{ story.subtitle }}</p>
+                                </div>
+                                <div class="col-4 text-right">
+                                    <img src="{{ story.image.url }}" alt="{{ main_story.title }}" class="img-thumbnail top-story-image">
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+        </div>
+        <div class="col-12 d-none d-lg-block col-lg-4">
+            <div class="col">
+                <h5 class="mt-2 mb-1 p-0">Tags</h5>
+                {% for tag in topics %}
+                    <a class="btn btn-outline-primary m-1 btn-sm" href="/blog/get/tag?key={{ tag }}">{{ tag }}</a>
+                {% endfor %}
+             <hr>
+            </div>
+            <div class="col">
+                <h5 class="mt-2 mb-1 p-0">Blog Series</h5>
+                {% for topic in series %}
+                    <a class="btn btn-outline-info btn-sm m-1" href="/blog/get/series?key={{ topic }}">{{ topic }}</a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+        <!-- blog pagination -->
+        <div>
+            {% if latest_stories.has_other_pages %}
+                {% if latest_stories.has_previous %}
+                    <a href="?page=1#latest-stories" class="btn btn-outline-info m-1 btn-sm">First</a>
+                    <a href="?page={{ latest_stories.previous_page_number }}#latest-stories" class="btn btn-outline-info m-1 btn-sm">Previous</a>
+                {% endif %}
+                {% for num in latest_stories.paginator.page_range %}
+                    {% if num == latest_stories.number %}
+                        <a href="?page={{ num }}#latest-stories" class="btn btn-info m-1 btn-sm">{{ num }}</a>
+                        {% elif num > latest_stories.number|add:'-3' and num < latest_stories.number|add:'3' %} <a href="?page={{ num }}#latest-stories"
+                            class="btn btn-outline-info m-1 btn-sm">{{ num }}</a>
+                        {% endif %}
+                {% endfor %}
+                {% if latest_stories.has_next %}
+                    <a href="?page={{ latest_stories.next_page_number }}#latest-stories" class="btn btn-outline-info m-1 btn-sm">Next</a>
+                    <a href="?page={{ latest_stories.paginator.num_pages }}#latest-stories" class="btn btn-outline-info m-1 btn-sm">Last</a>
+                {% endif %}
+            {% endif %}
+        </div>
+{% endblock %}

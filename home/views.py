@@ -1,5 +1,5 @@
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from .forms import MailingForm, SubscriberForm
 from django.core.mail import send_mail
 from .models import *
 import random
@@ -7,7 +7,7 @@ import random
 
 def home(request):
     ip = get_client_ip(request)
-    refer=''
+    refer = ''
     try:
         if request.META.get('HTTP_REFERER'):
             refer = request.META.get('HTTP_REFERER')
@@ -31,21 +31,16 @@ def home(request):
         certifications = c
     else:
         certifications = random.sample(list(c), 3)
-    print(certifications)
+    projects = Project.objects.filter(allowed=True)
+
     context = {
         'title':'Atul Singh : Portfolio', 'contact_buttons':contact_buttons, 'profile':profile, 'achievements':ach_badges,
-        'tech_stack':tech_stack, 'certifications' : certifications
+        'tech_stack':tech_stack, 'certifications' : certifications, 'projects' : projects
     }
-    return render(request, 'portfolio.html', context=context)
+    return render(request, 'portfolio/portfolio.html', context=context)
 
 
 def contact(request):
-    try:
-        redir = '/'+request.GET['redir']
-        typ = '&type='+request.GET['type']
-    except:
-        redir = ''
-        typ = ''
     if request.method == 'POST':
         email = request.POST['email']
         name = request.POST['name']
@@ -57,20 +52,9 @@ def contact(request):
         reply_message = 'Hey '+name+",\nThank you for contacting. I have received your message, you will hear from me soon.\nAtul" \
                                     " Singh\n\n\nDon't reply to this mail, this is system generated."
         send_mail(reply_subject, reply_message, 'atul.auth@gmail.com', [email, ], fail_silently=True)
-        return redirect(redir+'/?refer=refer_success'+typ)
+        return redirect(redirect+'/?refer=refer_success')
     else:
-        return redirect('/')
-
-
-def presence(request):
-    if request.method == 'POST':
-        if request.is_ajax():
-            email = request.POST['email']
-            name = request.POST['name']
-            Visitor.objects.create(email=email, name=name, subscribe=False)
-            return redirect(redirect)
-    else:
-        return redirect('/')
+        return render(request, template_name='portfolio/collab.html')
 
 
 def get_client_ip(request):
@@ -82,17 +66,18 @@ def get_client_ip(request):
     return ip
 
 
-def collab(request):
-    return render(request, 'collab.html')
-
-
-def projects(request):
-    return render(request, 'project.html')
-
-
 def certifications(request):
-    pass
+    obj_queryset = Certification.objects.filter(allowed=True)
+    return HttpResponse("WORKING ON IT")
 
 
-def collab_form(request,id):
-    pass
+def view_project(request, id):
+    obj_queryset = Project.objects.filter(id=id)
+    context = {}
+    if len(obj_queryset) != 0:
+        project = obj_queryset[0]
+        context = {"project": "Working on it"}
+    return render(request, template_name='portfolio/project.html', context=context)
+
+def resume(request):
+    return HttpResponse("Work in progress")

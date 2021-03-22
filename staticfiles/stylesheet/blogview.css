@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Poppins:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap');
+
+.menu_anchor {
+    text-decoration: none;
+}
+
+.menu_anchor:hover {
+    text-decoration: none;
+}
+
+.main-story-card {
+    margin-top: 10px;
+    background-color: white;
+    border-radius: 20px;
+    padding: 20px;
+    max-height: 600px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.top-story-card {
+    margin: 5px;
+    height: 120px;
+    overflow: hidden;
+    background-color: white;
+    border-radius: 20px;
+    padding: 10px;
+}
+
+.story-title {
+    color: black;
+}
+
+.story-detail {
+    font-size: smaller;
+    color: #4e555b;
+}
+
+.story-subtitle {
+    font-size: small;
+    padding: 5px;
+}
+.top-story-image {
+    height: 100px;
+}
+
+#series-name {
+    font-size: large;
+    line-height: 40px;
+    font-family: 'Roboto Mono', monospace;
+    padding-top: 5px;
+}
+
+.blog-meta {
+    width: 100%;
+    border-radius: 10px;
+    background-color: white;
+    height: border-box;
+    line-height: 30px;
+}
+
+.blog-hero {
+    padding: 0;
+}
+
+.blog-subtitle {
+    width: 100%;
+    border-radius: 10px;
+    background-color: white;
+}
+
+.blog-subtitle-text {
+    padding: 5px;
+    font-size: 20px;
+    line-height: 30px;
+    min-height: 30px;
+    font-family: 'Roboto Mono', monospace;
+}
+
+.blog-content-text {
+    line-height: 30px;
+    font-size: 20px;
+    font-family: 'Montserrat', 'Open-Sans', serif;
+}

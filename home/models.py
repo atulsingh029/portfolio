@@ -6,19 +6,8 @@ class Profile(models.Model):
     email = models.EmailField(max_length=254)
     picture = models.ImageField(upload_to='profilePicture')
     bio = models.CharField(max_length=2048, null=True, blank=True)
-    phone = models.IntegerField()
+    phone = models.CharField(max_length=10, null=True, blank=True)
     github_handle = models.CharField(max_length=256)
-    user_type = models.CharField(max_length=11, choices=(('admin', 'admin'), ('contributor', 'contributor')))
-
-    def __str__(self):
-        return self.name
-
-
-class Visitor(models.Model):
-    name = models.CharField(max_length=160)
-    email = models.EmailField(max_length=254)
-    subscribe = models.BooleanField()
-    date = models.DateField(auto_now_add=True)
 
     def __str__(self):
         return self.name
@@ -27,8 +16,11 @@ class Visitor(models.Model):
 class ContactIcon(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     name = models.CharField(max_length=150)
-    icon = models.ImageField(upload_to='icons') # ToDo : Change to Font Awesome Icon Drop Down
+    icon = models.CharField(max_length=50,help_text="enter font awesome icon name")
     url = models.URLField(max_length=2048, null=True, blank=True)
+
+    def __str__(self):
+        return self.name
 
 
 class Contact(models.Model):
@@ -43,7 +35,7 @@ class Contact(models.Model):
         return self.name+' '+self.email
 
 
-class Technology(models.Model):
+class TechStack(models.Model):
     name = models.CharField(max_length=120)
     image = models.ImageField(upload_to='badges')
 
@@ -62,29 +54,19 @@ class Project(models.Model):
     source = models.CharField(max_length=8, choices=Source, default='close')
     project_type = models.CharField(max_length=10, choices=(('solo', 'solo'), ('group', 'group')))
     developers = models.ManyToManyField(Profile)
-    tech_stack = models.ManyToManyField(Technology)
+    tech_stack = models.ManyToManyField(TechStack)
     status = models.CharField(max_length=15, choices=(('Completed', 'completed'), ('In Progress', 'in progress')))
+    start_date = models.DateField(null=True, blank=True)
+    end_date = models.DateField(null=True, blank=True)
     allowed = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
 
 
-class CollaboratorVacancy(models.Model):
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    reqirement = models.CharField(max_length=10000)
-
-    def __str__(self):
-        return self.project.name
-
-
-class CollaboratorApplication(models.Model):
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    name = models.CharField(max_length=160)
-    email = models.EmailField(max_length=254)
-    position = models.CharField(max_length=512)
-    phone = models.IntegerField()
-    datetime = models.DateTimeField(auto_now_add=True)
+class ResearchPaper(models.Model):
+    project = models.ForeignKey(Project, null=True, blank=True, on_delete=models.CASCADE)
+    document = models.FileField(upload_to='research/')
 
 
 class Certification(models.Model):
@@ -95,6 +77,21 @@ class Certification(models.Model):
     expiry_date=models.DateField(null=True,blank=True,default=None)
     text = models.CharField(max_length=200, null=True,blank=True)
     allowed = models.BooleanField(default=False)
+
+
+class Experience(models.Model):
+    company_name = models.CharField(max_length=120)
+    experience_type = models.CharField(max_length=50, choices=[('internship','Internship'),('fullTimeJob', 'Full-Time Job'),('freelance', 'Freelance')])
+    role = models.CharField(max_length=255, null=True, blank=True)
+    project = models.CharField(max_length=130, null=True, blank=True)
+    project_url = models.URLField(null=True, blank=True)
+    from_date = models.DateField(null=True, blank=True, default=None)
+    to_date=models.DateField(null=True,blank=True,default=None)
+    text = models.CharField(max_length=200, null=True,blank=True)
+    allowed = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.company_name
 
 
 class Logger(models.Model):

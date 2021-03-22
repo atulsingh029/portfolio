@@ -5,98 +5,30 @@
 <head>
     <meta charset="UTF-8">
     <link rel="shortcut icon" href="{% static 'icons/favicon.ico' %}">
+    <link rel="stylesheet" href="{% static 'stylesheet/font-awesome-4.7.0/css/font-awesome.min.css' %}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href={% static 'stylesheet/base.css' %}>
+    <link rel="stylesheet" href={% static 'stylesheet/abstract_base.css' %}>
+    {% block head_import %}
+    {% endblock %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>{{ title }}</title>
+    <title>{{ page_context.title }}</title>
 </head>
 <body>
-<header>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand" href="/{{ logolink }}">
-                <img src="https://atulsingh029.github.io/icons/icon.png" width="50" height="50"
-                     class="d-inline-block align-middle" alt="" loading="lazy">
-                <span class="pl-1">{{ sidetitle }}</span>
-            </a>
-            <button class="navbar-toggler" type="button" id="nav_toggler" data-toggle="collapse" data-target="#navbarNavAltMarkup"
-                    aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
-                <div class="navbar-nav ">
-                    <a class="nav-item nav-link custom-nav" href="/">Back To Home</a>
-                    {% for item in navItems %}
-                        <a class="nav-item nav-link custom-nav" href="{{ item.link }}">{{ item.text }}</a>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-    </nav>
-
-</header>
-<div class="container">
-    {% block container %}
-    {% endblock %}
-</div>
-
-<footer id='about'>
-    <div class="jumbotron jumbotron-fluid">
-        <div class="container">
-            <!--footer -->
-            <div class="row">
-                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                    <section>
-                        <div class="row">
-                            <div class="col-2 pl-2">
-                                <img src="{{ profilePicture }}" alt=""
-                                     class="rounded-circle" height="65px" width="65px">
-                            </div>
-                            <div class="col-9 mt-2">
-                                <p>To collaborate with me feel free to submit project details through<button
-                                 type="button" id="collaboration_btn" class="btn btn-link m-0 p-0 pb-1 pl-1" style="color: blue"> collaboration form</button>. To contact me hit the <button
-                                 type="button" id="contact_btn" class="btn btn-link m-0 p-0 pb-1 pl-1" style="color: blue">contact</button> button.</p>
-                            </div>
-                        </div>
-                    </section>
-                    <section>
-                        <h4>Connect With Me!</h4>
-                        <ul class="nav">
-                            <li class="nav-item">
-                                <a class="nav-link active" href="mailto:atul@atul.codes"><img
-                                        src="https://atulsingh029.github.io/icons/mail.png" alt="Mail"
-                                        width="25px" height="25px"></a>
-                            </li>
-                        </ul>
-                    </section>
-                </div>
-
-                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-                    {% if presenceform %}
-                        <div class="card col-12 col-sm-10 p-0">
-                        <div class="card-header">
-                            <h5 class="pt-2">Subscribe to my blog alerts, it's great!</h5>
-                        </div>
-                        <div class="card-body">
-                            <form method="post" action="">
-                                {% csrf_token %}
-                                {{ presenceform|crispy }}
-                                <button class="btn btn-outline-secondary btn-sm mt-1" type="submit">Subscribe</button>
-                            </form>
-                        </div>
-                    </div>
-                    {% endif %}
-                </div>
-
-            </div>
-
-        </div>
+    <div class="navigation">
+        {% for item in navbar_items %}
+            <a class="navigation-item" href="{{ item.link }}">{{ item.text }}</a>
+        {% endfor %}
     </div>
-    <hr>
-    <p align="center">&copy; 2020 atul.codes all rights reserved.
-    <p>
-</footer>
+    <div class="container-fluid">
+
+        {% block container %}
+        {% endblock %}
+    </div>
+
+    <footer>
+
+    </footer>
 <!-- end footer tag -->
 </body>
 </html>

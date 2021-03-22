@@ -1,0 +1,79 @@
+{% extends 'abstract_blog.html' %}
+{% load static %}
+
+{% block head_container %}
+    <link href="{% static 'stylesheet/blogview.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block main_container %}
+    <div class="text-left">
+        <h1 class="h2 p-2">{{ blog.title }}</h1>
+    </div>
+    <div class="m-2">
+      <div class="blog-meta p-1 d-none d-md-block">
+         <span class="text-muted">Subject : </span><h6 class="d-inline ">{{ blog.type }} </h6> <span style="float: right" class="">{{blog.writer}} on {{blog.datetime}}</span>
+          {% if series_name %}
+              <br><span class="text-muted">Series : </span><h6 class="d-inline ">{{ series_name }} </h6>
+          {% endif %}
+      </div>
+      <div class="blog-meta p-1 d-md-none">
+         <span class="text-muted">Subject : </span><h6 class="d-inline ">{{ blog.type }} </h6>
+          {% if series_name %}
+              <br><span class="text-muted">Series : </span><h6 class="d-inline ">{{ series_name }} </h6>
+          {% endif %}
+        <br> <span class="">{{blog.writer}} on {{blog.datetime}}</span>
+      </div>
+    </div>
+    <div class="blog-hero row">
+        <div class="col-12 col-sm-12 col-lg-6 col-md-6 col-lg-6 col-xl-6 text-center">
+            <img src="{{ blog.image.url }}" class="img-fluid rounded" alt="{{ blog.title }}">
+        </div>
+        <div class="col-12 col-sm-12 col-lg-6 col-md-6 col-lg-6 col-xl-6">
+            <h6 class="mt-2 mt-md-0 mb-0 pb-0">Tags</h6><hr class="p-0 m-0">
+            {% for tag in tags %}
+                <a class="btn btn-outline-primary m-1 btn-sm" href="/blog/get/tag?key={{ tag }}">{{ tag }}</a>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="blog-subtitle mt-2">
+        <p class="blog-subtitle-text">{{ blog.subtitle }}</p>
+    </div>
+    <div class="m-1 p-1">
+    {%  if blog.safe %}
+        {% autoescape off %}
+        <p class="blog-content-text">{{ blog.text }}</p>
+        {% endautoescape %}
+     {% else %}
+        <p class="blog-content-text">{{ blog.text }}</p>
+    {% endif %}
+    </div>
+
+    <div class="nav nav-link">
+    <a href="mailto:feedback@atul.codes?subject=Feedback%20key-{{ blog.linkkey }}&body=DoNotEditOrChangeSubject%20WriteYourFeedbackBelow" target= "_blank">feedback</a>
+    </div>
+
+    <div class="col">
+        <h5 class="mt-2 mt-lg-0" id="latest-stories">Stories You May Like</h5>
+        <hr>
+    </div>
+    <div class="row">
+        <div class="col-12 col-lg-8">
+            {% for story in flinks %}
+                <div class="top-story-card">
+                    <a href="?to={{ story.linkkey }}" class="menu_anchor">
+                        <div class="row">
+                            <div class="col-8">
+                                <p class="story-title m-0 pl-2">{{ story.title }}</p>
+                                <p class="story-detail m-0 pl-2">By : {{ story.writer }} on {{ story.datetime }}</p>
+                                <p class="story-subtitle pl-2">{{ story.subtitle }}</p>
+                            </div>
+                            <div class="col-4 text-right">
+                                <img src="{{ story.image.url }}" alt="{{ main_story.title }}" class="img-thumbnail top-story-image">
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

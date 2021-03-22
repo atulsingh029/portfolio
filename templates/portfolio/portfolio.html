@@ -5,46 +5,54 @@
 <head>
     <meta charset="UTF-8">
     <link rel="shortcut icon" href="{% static 'icons/favicon.ico' %}">
-    <link rel="stylesheet" href="{% static 'stylesheet/font-awesome/all.min.css' %}">
-    <link rel="stylesheet" href={% static 'stylesheet/bootstrap/bootstrap.min_v4.5.3.css' %}>
+    <link rel="stylesheet" href="{% static 'stylesheet/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'stylesheet/bootstrap/bootstrap.min_v4.5.3.css' %}">
     <link rel="stylesheet" href={% static 'stylesheet/portfolio.css' %}>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>{{ title }}</title>
 </head>
 <body>
-    <div class="container-fluid m-0 p-0">
+
     <!-- navbar -->
-        <div class="navigation">
-            <div class="container">
-                <a style="display: block">test</a>
-            </div>
+        <div class="navi-box text-center">
+            <ul>
+                <li><a href="/blog">BLOG</a></li>
+                <li><a href="/to/contact/">CONTACT</a></li>
+                <li><a href="/resume/">RESUME</a></li>
+            </ul>
         </div>
     <!-- end navbar -->
-    </div>
-    <div class="container" id="main-container">
-    <!-- Hero Area -->
+
+    <div class="container-fluid" id="main-container">
         <div class="row">
+            <div class="col-12 intro text-center">
+                <br>
+                <h1 class="display-5">Hi, I'm <span style="color: blue">Atul Singh</span></h1>
+                <h2 class="display-5">I'm a <span id="prof" style="color: red">Computer Science Student</span></h2>
+            </div>
+        </div>
+    <!-- Hero Area -->
+        <div class="row mx-3 my-2">
             <div class="col-12 col-lg-6">
-                <h3 class="p-3">Hi, I'm Atul Singh</h3>
-                <div>
-                    <div><img src="{% static 'media/quote.png'%}" class="img-responsive" height="18px" width="18px"></div>
-                    <div>
+                <div id="hero-box">
+                    <div><img src="{% static 'media/quote.png' %}" class="img-responsive" height="18px" width="18px"></div>
+                    <div >
                         <p class="px-4 pt-1 m-0 bio">
                         {{ profile.bio }}
                         </p>
                     </div>
-                    <div class="text-right mt-0 mb-2"><img src="{% static 'media/inverted-quote.png'%}" class="img-responsive" height="18px" width="18px"></div>
+                    <div class="text-right mt-0 mb-2"><img src="{% static 'media/inverted-quote.png' %}" class="img-responsive" height="18px" width="18px"></div>
                 </div>
             </div>
             <div class="col-12 col-lg-6 text-center">
-                <img src="{% static 'media/hero.png'%}" class="img-responsive my-5 pt-3">
+                <img src="{% static 'media/hero.png' %}" class="img-responsive my-3 pt-3">
             </div>
         </div>
     <!-- End Hero Area -->
 
     <!-- badges -->
-    <div class="row my-1">
+    <div class="row my-1 mx-3">
         <div class="col text-center">
             {% for achievement in achievements %}
                 <div class="d-inline-flex">
@@ -61,7 +69,7 @@
 
     <!-- Education and Certification -->
         <section id="resume" class="resume">
-            <div class="row">
+            <div class="row mx-5">
               <div class="col-lg-6" data-aos="fade-up">
                 <h3 class="resume-title">Education</h3>
                 <div class="resume-item">
@@ -101,37 +109,30 @@
                   <p><a href="{{ certification.c_link }}" target="_blank">View Certificate</a> </p>
                 </div>
                 {% endfor %}
-                  <a href="#">
-                        <a href="/to/certifications" class="btn btn-link btn-sm mb-2"><span class="fas fa-list-ul"></span> List All</a>
-                  </a>
+                        <a href="/to/certifications" class="btn btn-link btn-sm mb-2"><span class="fa fa-list-ul"></span> List All</a>
               </div>
             </div>
         </section>
     <!-- End Education And Certification -->
 
-    <!-- collaboration hero -->
-    <div class="row my-3">
-        <div class="col-2"></div>
-        <div class="col-8">
-            <div class="collab-banner mx-auto p-3 text-center">
-                <h6>Looking for collaborator or project to work on?</h6>
-                <a href="/to/collab" id="collab_btn"><span class="fas fa-arrow-circle-right"></span></a>
-            </div>
-        </div>
-        <div class="col-2"></div>
-    </div>
-    <!-- end collaboration hero -->
-
     <!-- project display area -->
-    <div class="row my-1">
-        <div class="col resume" id="resume">
-            <h3 class="resume-title">Projects</h3>
-        </div>
+    <div class="row my-1 mx-3">
+        <div class = 'col-12 resume'><h3 class="resume-title">Projects</h3></div>
+        {% for project in projects %}
+            <div class = "col my-2">
+                <a href="/to/project/{{ project.id }}" target="_blank" id="card_anchor">
+                <div class="project-box" style='background-image: url("{{ project.icon.url }}");background-size: cover'>
+                    <p class="lead project-title">{{ project.name }}</p>
+                    <p class="project-status">{{ project.status }}</p>
+                </div>
+                </a>
+            </div>
+        {% endfor %}
     </div>
     <!-- end project display area -->
 
     <!-- tech stack -->
-    <div class="row my-1">
+    <div class="row my-1 mx-3">
         <div class="col resume" id="resume">
             <h3 class="resume-title">Technologies I know</h3>
             {% for tech in tech_stack %}
@@ -149,36 +150,34 @@
     </div>
 
     <footer id='about'>
-        <div class="jumbotron jumbotron-fluid mb-0 pb-1" style="background-image: linear-gradient(45deg,azure, bisque);">
-            <div class="container">
+        <div class="container-fluid mb-0 pb-1 px-5 pt-5" style="background-image: linear-gradient(45deg,azure, bisque);overflow: hidden">
+
                 <!--footer -->
                 <div class="row">
-                    <div class="col-12 col-lg-6">
+                    <div class="col-12 col-lg-4">
                         <div class="row">
                             <div class="col-2 pl-1 mt-1">
                                 <img src="{{ profile.picture.url }}" alt="AtulSingh" class="rounded-circle" height="65px" width="65px">
                             </div>
                             <div class="col-10">
-                                <p>To collaborate with me feel free to submit project details through <a href="/to/collab" id="collaboration_btn" class="btn btn-link m-0 p-0 pb-1" style="color: blue">collaboration form</a>. To contact me hit the <a href="/to/contact" id="contact_btn" class="btn btn-link m-0 p-0 pb-1" style="color: blue">contact</a> button.</p>
+                                <p>To contact me feel free to drop a <a href="/to/contact" id="collaboration_btn" class="btn btn-link m-0 p-0 pb-1" style="color: blue">message</a>.<br> <span style="color: #1f5297"> #<b>OpenToCollaborate</b></span></p>
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 col-lg-6">
+                    <div class="col-12 col-lg-8">
                         <h4>Connect With Me!</h4>
                         <ul class="nav">
                             {% for i in contact_buttons %}
                                 <li class="nav-item"> <!--ToDo : Change to Font Awesome Icons-->
-                                    <a class="nav-link active" href="{{ i.url }}"><img
-                                            src="{{ i.icon.url }}" alt="{{ i.name }}"
-                                            width="35px" height="35px"></a>
+                                    <a class="nav-link active p-1" href="{{ i.url }}" target="_blank"><i class="fa fa-{{ i.icon }} fa-2x"></i> </a>
                                 </li>
                             {% endfor %}
                         </ul>
                     </div>
                 </div>
-            </div>
+
             <hr>
-            <p align="center">Made with <span class="fas fa-heart" style="color: red"></span> by Atul Singh | &copy; All rights reserved.<p>
+            <p align="center">Made with <span class="fa fa-heart" style="color: red"></span> by Atul Singh | &copy; All rights reserved.<p>
         </div>
     </footer>
 <!-- end footer tag -->

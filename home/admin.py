@@ -8,9 +8,6 @@ class CustomVisitor(admin.ModelAdmin):
     search_fields = ('name', 'email')
 
 
-admin.site.register(Visitor,CustomVisitor)
-
-
 class CustomContact(admin.ModelAdmin):
     list_display = ['name', 'email', 'subject', 'readstatus', 'datetime']
     search_fields = ['name','email', 'datetime']
@@ -57,8 +54,6 @@ admin.site.register(ContactIcon)
 
 admin.site.register(Badge)
 
+admin.site.register(Experience)
 
-admin.site.register(CollaboratorVacancy)
-
-
-admin.site.register(CollaboratorApplication)
+admin.site.register(TechStack)

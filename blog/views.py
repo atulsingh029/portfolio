@@ -1,31 +1,33 @@
-from django.shortcuts import render,HttpResponse
-from home.forms import SubscriberForm,MailingForm
-from .models import Blog
+from django.shortcuts import render
+from home.forms import SubscriberForm, MailingForm
+from .models import Blog, Tag, BlogSeries
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from home.models import ContactIcon, Contact, Profile
 
 
 def blog(request):
+    profile = Profile.objects.get(email='atulsingh29@protonmail.com')
+    contact_icons = ContactIcon.objects.filter(profile=profile)
     blog_list = Blog.objects.filter(allowed=True)
+    tags = Tag.objects.all()
+    series = BlogSeries.objects.all()
     if len(blog_list) == 0:
-        return HttpResponse('<h3>This page is empty (no content is posted) at this moment. Please come back later.</h3>')
+        return render(request, 'blog/blog_404.html')
     else:
-        last = len(blog_list)-1
+        last = len(blog_list) - 1
     banner_temp = blog_list[last]
 
-    top3=[]
+    top = Blog.get_top_blogs()
+
     latest = []
 
     for i in blog_list:
-            if i == banner_temp:
-                continue
-            if i.top3:
-                top3.append(i)
-            else:
-                latest.append(i)
-    top3.reverse()
-
+        if i == banner_temp:
+            continue
+        else:
+            latest.append(i)
     latest.reverse()
-    paged = Paginator(latest,5)
+    paged = Paginator(latest, 6)
     page = request.GET.get('page', 1)
     try:
         latest = paged.get_page(page)
@@ -34,42 +36,42 @@ def blog(request):
     except EmptyPage:
         latest = paged.get_page(paged.num_pages)
 
+    main_story = {'linkkey': banner_temp.linkkey, 'title': banner_temp.title, 'image': banner_temp.image.url,
+                  'subtitle': banner_temp.subtitle, 'datetime': banner_temp.datetime,
+                  'writer': banner_temp.writer, 'type': banner_temp.type}
 
-    banner = {'linkkey': banner_temp.linkkey, 'title': banner_temp.title, 'image': banner_temp.image,
-              'subtitle': banner_temp.subtitle, 'datetime': banner_temp.datetime,
-              'writer': banner_temp.writer, 'type': banner_temp.type}
-    if len(banner) == 0:
-        banner={'title':'This section is empty at this moment.'}
-    if len(latest) == 0:
-        latest=['This section is empty at this moment.']
-    if len(top3) == 0:
-        top3=['This section is empty at this moment.']
     mform = MailingForm()
     vform = SubscriberForm()
-    title = 'Blog'
-    sidetitle = ' Blog'
-    logolink = 'blog/'
-    context = {'contactform':mform, 'title':title, 'sidetitle':sidetitle, 'logolink':logolink,
-               'presenceform':vform,'redirect_to':'blog','top3flinks':top3,'flinks':latest,
-               'banner':banner}
-    return render(request, 'blog.html',context=context)
+    page_context = {'page_title': 'Blog', 'navbar_title': ' Blog', 'logo_link': 'blog/', 'contactform': mform,
+                    'presenceform': vform, 'redirect_to': 'blog'}
+
+    context = {'top_stories': top, 'latest_stories': latest, 'main_story': main_story,
+               'page_context': page_context, 'topics': tags, 'series': series,
+               'contact_buttons': contact_icons, 'profile':profile,
+               }
+    return render(request, 'blog/blog.html', context=context)
 
 
 def blogView(request):
-    goto = request.GET.get('to','')
+    profile = Profile.objects.get(email='atulsingh29@protonmail.com')
+    contact_icons = ContactIcon.objects.filter(profile=profile)
+    goto = request.GET.get('to', '')
     obj = Blog.objects.filter(linkkey=goto, allowed=True)
+
     try:
-        out = {'title': obj[0].title, 'image':obj[0].image,
-                  'subtitle': obj[0].subtitle, 'datetime': obj[0].datetime,
-                  'writer': obj[0].writer, 'type': obj[0].type, 'text':obj[0].text,
-                   'safe': obj[0].allow_html, 'linkkey': obj[0].linkkey}
+        o = obj[0]
+        o.visit_count += 1
+        o.save()
+        out = {'title': obj[0].title, 'image': obj[0].image,
+               'subtitle': obj[0].subtitle, 'datetime': obj[0].datetime,
+               'writer': obj[0].writer, 'type': obj[0].type, 'text': obj[0].text,
+               'safe': obj[0].allow_html, 'linkkey': obj[0].linkkey}
         title = obj[0].title
     except:
-        out = {'subtitle':'blog not found.'}
-        title = '404 blog not found'
-
+        return render(request, template_name='blog/blog_404.html')
+    tags = Tag.objects.all()
     genre = obj[0].type
-    recommended = Blog.objects.filter(allowed=True, type=genre,)
+    recommended = Blog.objects.filter(allowed=True, type=genre, )
     recommended_list = []
     count = 0
     for i in recommended:
@@ -83,6 +85,26 @@ def blogView(request):
     mform = MailingForm()
     sidetitle = ' Blog'
     logolink = 'blog/'
-    context = {'blog':out,'contactform':mform, 'title':title, 'sidetitle':sidetitle, 'logolink':logolink,
-               'flinks':recommended_list}
-    return render(request,'blogview.html',context=context)
+    context = {'blog': out, 'contactform': mform, 'title': title, 'sidetitle': sidetitle, 'logolink': logolink,
+               'flinks': recommended_list, 'series_name': "", 'tags': tags, 'contact_buttons': contact_icons, 'profile':profile,}
+    return render(request, 'blog/blogview.html', context=context)
+
+
+def get(request, obj):
+    profile = Profile.objects.get(email='atulsingh29@protonmail.com')
+    contact_icons = ContactIcon.objects.filter(profile=profile)
+    context = {
+        'contact_buttons': contact_icons, 'profile': profile
+    }
+    if obj == 'search':
+        key = request.GET['key'][:30]
+        context.update({"key": key+ " "+obj})
+        return render(request, template_name='blog/blog_search_result.html', context=context)
+    elif obj == 'series':
+        key = request.GET['key'][:30]
+        context.update({"key": key+ " "+obj})
+        return render(request, template_name='blog/blog_search_result.html', context=context)
+    else:
+        key = request.GET['key'][:30]
+        context.update({"key": key+ " "+obj})
+        return render(request, template_name='blog/blog_search_result.html', context=context)

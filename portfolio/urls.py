@@ -26,6 +26,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('blog/',include('blog.urls')),
     path('to/', include('home.urls')),
+    path('resume/', HomeView.resume)
 ]
 
 if settings.DEBUG:
