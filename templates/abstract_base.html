@@ -8,26 +8,56 @@
     <link rel="stylesheet" href="{% static 'stylesheet/font-awesome-4.7.0/css/font-awesome.min.css' %}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href={% static 'stylesheet/abstract_base.css' %}>
-    {% block head_import %}
+    {% block head_container %}
     {% endblock %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>{{ page_context.title }}</title>
 </head>
 <body>
-    <div class="navigation">
-        {% for item in navbar_items %}
-            <a class="navigation-item" href="{{ item.link }}">{{ item.text }}</a>
-        {% endfor %}
-    </div>
-    <div class="container-fluid">
-
-        {% block container %}
+    <div class="navi-box text-center">
+            <ul>
+                <li><a href="/">HOME</a></li>
+                <li><a href="/blog">BLOG</a></li>
+                <li><a href="/to/contact/">CONTACT</a></li>
+                <li><a href="/resume/">RESUME</a></li>
+            </ul>
+        </div>
+    <div class="container-fluid" id="main">
+        {% block main_container %}
         {% endblock %}
     </div>
+<!--footer -->
+    <footer id='about'>
+        <div class="container-fluid mb-0 pb-1 px-5 pt-5" style="background-image: linear-gradient(45deg,azure, bisque);overflow: hidden">
 
-    <footer>
+                <!--footer -->
+                <div class="row">
+                    <div class="col-12 col-lg-4">
+                        <div class="row">
+                            <div class="col-2 pl-1 mt-1">
+                                <img src="{{ profile.picture.url }}" alt="AtulSingh" class="rounded-circle" height="65px" width="65px">
+                            </div>
+                            <div class="col-10">
+                                <p>To contact me feel free to drop a <a href="/to/contact" id="collaboration_btn" class="btn btn-link m-0 p-0 pb-1" style="color: blue">message</a>.<br> <span style="color: #1f5297"> #<b>OpenToCollaborate</b></span></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-8">
+                        <h4>Connect With Me!</h4>
+                        <ul class="nav">
+                            {% for i in contact_buttons %}
+                                <li class="nav-item">
+                                    <a class="nav-link active p-1" href="{{ i.url }}" target="_blank"><i class="fa fa-{{ i.icon }} fa-2x"></i> </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
 
+            <hr>
+            <p align="center">Made with <span class="fa fa-heart" style="color: red"></span> by Atul Singh | &copy; All rights reserved.<p>
+        </div>
     </footer>
 <!-- end footer tag -->
 </body>

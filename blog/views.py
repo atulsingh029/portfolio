@@ -85,8 +85,11 @@ def blogView(request):
     mform = MailingForm()
     sidetitle = ' Blog'
     logolink = 'blog/'
+    page_context = {"title": obj[0].title+" by "+obj[0].writer.first_name }
     context = {'blog': out, 'contactform': mform, 'title': title, 'sidetitle': sidetitle, 'logolink': logolink,
-               'flinks': recommended_list, 'series_name': "", 'tags': tags, 'contact_buttons': contact_icons, 'profile':profile,}
+               'flinks': recommended_list, 'series_name': "", 'tags': tags, 'contact_buttons': contact_icons,
+               'profile': profile, 'page_context': page_context,
+               }
     return render(request, 'blog/blogview.html', context=context)
 
 

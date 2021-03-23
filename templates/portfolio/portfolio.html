@@ -121,7 +121,7 @@
         {% for project in projects %}
             <div class = "col my-2">
                 <a href="/to/project/{{ project.id }}" target="_blank" id="card_anchor">
-                <div class="project-box" style='background-image: url("{{ project.icon.url }}");background-size: cover'>
+                <div class="project-box">
                     <p class="lead project-title">{{ project.name }}</p>
                     <p class="project-status">{{ project.status }}</p>
                 </div>

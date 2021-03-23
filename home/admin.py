@@ -57,3 +57,7 @@ admin.site.register(Badge)
 admin.site.register(Experience)
 
 admin.site.register(TechStack)
+
+admin.site.register(ProjectScreenshot)
+
+admin.site.register(ProjectRelatedDoc)

@@ -49,7 +49,7 @@ class Project(models.Model):
     name = models.CharField(max_length=255, null=False, blank=False)
     sourcecode = models.URLField(null=True, blank=True, default=None)
     deployment_url = models.URLField(null=True, blank=True, default=None)
-    icon = models.ImageField(upload_to='icons',null=True, blank=True, default='/static/icons/project.png')
+    icon = models.ImageField(upload_to='icons',null=True, blank=True, default='media/icons/project.png')
     deployed = models.CharField(max_length=8, choices=Deployed, default='no')
     source = models.CharField(max_length=8, choices=Source, default='close')
     project_type = models.CharField(max_length=10, choices=(('solo', 'solo'), ('group', 'group')))
@@ -59,14 +59,24 @@ class Project(models.Model):
     start_date = models.DateField(null=True, blank=True)
     end_date = models.DateField(null=True, blank=True)
     allowed = models.BooleanField(default=False)
+    description = models.TextField(max_length=4000, null=True, blank=True)
 
     def __str__(self):
         return self.name
 
 
-class ResearchPaper(models.Model):
+class ProjectScreenshot(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='media/screenshots', null=True, blank=True)
+    first = models.BooleanField(default=False)
+
+
+class ProjectRelatedDoc(models.Model):
     project = models.ForeignKey(Project, null=True, blank=True, on_delete=models.CASCADE)
-    document = models.FileField(upload_to='research/')
+    name = models.CharField(max_length=255)
+    icon = models.CharField(max_length=50, default='file', null=True, blank=True)
+    document = models.FileField(upload_to='doc/')
+    type = models.CharField(max_length=100, choices=(('public', 'public'), ('private', 'private')))
 
 
 class Certification(models.Model):

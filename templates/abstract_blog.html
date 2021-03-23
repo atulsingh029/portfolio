@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{% static 'stylesheet/abstract_blog.css' %}">
     {% block head_container %}
     {% endblock %}
-    <title>{{ page_title }}</title>
+    <title>{{ page_context.title }}</title>
 </head>
 <body>
     <div class="navigation">
@@ -54,7 +54,7 @@
                         <h4>Connect With Me!</h4>
                         <ul class="nav">
                             {% for i in contact_buttons %}
-                                <li class="nav-item"> <!--ToDo : Change to Font Awesome Icons-->
+                                <li class="nav-item">
                                     <a class="nav-link active p-1" href="{{ i.url }}"><i class="fa fa-{{ i.icon }} fa-2x" ></i> </a>
                                 </li>
                             {% endfor %}
