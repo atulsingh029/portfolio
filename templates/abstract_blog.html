@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{% static 'stylesheet/font-awesome-4.7.0/css/font-awesome.min.css' %}">
     <link rel="stylesheet" href="{% static 'stylesheet/bootstrap/bootstrap.min_v4.5.3.css' %}">
     <link rel="stylesheet" href="{% static 'stylesheet/abstract_blog.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     {% block head_container %}
     {% endblock %}
     <title>{{ page_context.title }}</title>
@@ -20,7 +21,7 @@
 
     <div class="container">
         <div class="row search">
-            <div class="col-12 text-center m-1">
+            <div class="col text-center m-1">
                 <form method="get">
                     <input name="key" required type="text" placeholder="Search" id="searchbar"><button id="searchbar-button" type="submit" formaction="/blog/get/search"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                     <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
@@ -35,7 +36,7 @@
         {% endblock %}
     </div>
 <footer id='about'>
-        <div class="container-fluid mb-0 pb-1 px-5 pt-5" style="overflow: hidden">
+        <div class="container-fluid mb-0 pb-1 px-2 pt-5" style="overflow: hidden">
             <div class="container">
                 <!--footer -->
                 <div class="row c-footer">
