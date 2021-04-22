@@ -34,18 +34,29 @@ class Blog(models.Model):
 
     @staticmethod
     def get_latest_blog():
-        return Blog.objects.last()
+        return Blog.objects.filter(allowed=True).order_by('datetime').reverse()[0]
 
 
     @staticmethod
     def get_top_blogs():
-        objects = Blog.objects.all().order_by('visit_count').exclude(linkkey=Blog.get_latest_blog().linkkey)
+        objects = Blog.objects.filter(allowed=True).order_by('visit_count').exclude(linkkey=Blog.get_latest_blog().linkkey)
         if len(objects) <= 5:
             return objects.reverse()
         return objects.reverse()[:5]
 
-    def get_latest_blogs(self, n):
-        pass
+    @staticmethod
+    def get_latest_blogs(n):
+        top = Blog.get_top_blogs()
+        fnl_objs = []
+        objects = Blog.objects.filter(allowed=True).order_by('datetime').reverse().exclude(linkkey=Blog.get_latest_blog().linkkey)
+        for i in objects:
+            if i in top:
+                pass
+            else:
+                fnl_objs.append(i)
+        if len(fnl_objs) <= 5:
+            return fnl_objs
+        return fnl_objs[:n]
 
 
 class Resource(models.Model):

@@ -1,0 +1,64 @@
+.menu_anchor {
+    text-decoration: none;
+}
+
+.menu_anchor:hover {
+    text-decoration: none;
+}
+
+.main-story-card {
+    margin-top: 10px;
+    background-color: white;
+    border-radius: 20px;
+    padding: 20px;
+    max-height: 600px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.top-story-card {
+    margin: 5px;
+    height: 120px;
+    overflow: hidden;
+    background-color: white;
+    border-radius: 20px;
+    padding: 10px;
+}
+
+.story-title {
+    color: black;
+}
+
+.story-detail {
+    font-size: smaller;
+    color: #4e555b;
+}
+
+.story-subtitle {
+    font-size: small;
+    padding: 5px;
+}
+
+.top-story-image {
+    height: 100px;
+}
+
+.main-story-title {
+    padding-top: 10px;
+    padding-bottom: 5px;
+    font-size: larger;
+    font-weight: bold;
+    line-height: 30px;
+    color: black;
+}
+
+.main-story-subtitle {
+    font-size: 16px;
+}
+
+.main-story-detail {
+    font-size: small;
+    color: #4e555b;
+    padding-bottom: 5px;
+}
+

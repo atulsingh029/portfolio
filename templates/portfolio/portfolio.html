@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <link rel="shortcut icon" href="{% static 'icons/favicon.ico' %}">
     <link rel="stylesheet" href="{% static 'stylesheet/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
     <link rel="stylesheet" href="{% static 'stylesheet/bootstrap/bootstrap.min_v4.5.3.css' %}">
     <link rel="stylesheet" href={% static 'stylesheet/portfolio.css' %}>
     <meta charset="UTF-8">
@@ -14,7 +15,7 @@
 </head>
 <body>
 
-    <!-- navbar -->
+    <!-- navbar
         <div class="navi-box text-center">
             <ul>
                 <li><a href="/blog">BLOG</a></li>
@@ -22,19 +23,39 @@
                 <li><a href="/resume/">RESUME</a></li>
             </ul>
         </div>
-    <!-- end navbar -->
+     end navbar -->
 
-    <div class="container-fluid" id="main-container">
+    <div class="container" id="main-container">
         <div class="row">
             <div class="col-12 intro text-center">
                 <br>
-                <h1 class="display-5">Hi, I'm <span style="color: blue">Atul Singh</span></h1>
-                <h2 class="display-5">I'm a <span id="prof" style="color: red">Computer Science Student</span></h2>
+                <h1 class="display-5">Hi, I'm <span style="color: crimson" >Atul Singh</span></h1>
+                <h2 class="display-5">I'm a <span id="prof" style="color: red"></span></h2>
+                <script>
+                 var typed5 = new Typed('#prof', {
+                    strings: ['<b style="color:mediumvioletred;">CSE Student</b> ',
+                        '<b style="color: blue;">Python Dev</b>',
+                        '<b style="color: orangered">Java Dev</b>',
+                        '<b style="color: seagreen">Django Dev</b>'
+                    ],
+                    typeSpeed: 100,
+                    backSpeed: 10,
+                    cursorChar: '_',
+                    //shuffle: true,
+                    smartBackspace: false,
+                    loop: true
+                  });
+                 </script>
+                <div class="d-inline">
+                    <a class="btn btn-outline-dark btn-sm" href="/blog">Blog</a>
+                    <a class="btn btn-outline-dark btn-sm" href="/resume">Resume</a>
+                    <a class="btn btn-outline-dark btn-sm" href="/to/contact">Contact</a>
+                </div>
             </div>
         </div>
     <!-- Hero Area -->
-        <div class="row mx-3 my-2">
-            <div class="col-12 col-lg-6">
+        <div class="row my-1">
+            <div class="col-12 <!--col-lg-6-->">
                 <div id="hero-box">
                     <div><img src="{% static 'media/quote.png' %}" class="img-responsive" height="18px" width="18px"></div>
                     <div >
@@ -45,9 +66,9 @@
                     <div class="text-right mt-0 mb-2"><img src="{% static 'media/inverted-quote.png' %}" class="img-responsive" height="18px" width="18px"></div>
                 </div>
             </div>
-            <div class="col-12 col-lg-6 text-center">
+            <!--<div class="col-12 col-lg-6 text-center">
                 <img src="{% static 'media/hero.png' %}" class="img-responsive my-3 pt-3">
-            </div>
+            </div>-->
         </div>
     <!-- End Hero Area -->
 
@@ -56,8 +77,8 @@
         <div class="col text-center">
             {% for achievement in achievements %}
                 <div class="d-inline-flex">
-                    <div style="width: 200px; height: 200px;overflow: hidden">
-                        <img src="{{ achievement.image.url }}" class="img-responsive m-1" height="90px" width="90px">
+                    <div style="width: 200px; height: 120px;overflow: hidden">
+                        <img src="{{ achievement.image.url }}" class="img-responsive m-1" height="75px" width="75px">
                         <p class="">{{ achievement.text }}</p>
                     </div>
                 </div>
@@ -69,7 +90,7 @@
 
     <!-- Education and Certification -->
         <section id="resume" class="resume">
-            <div class="row mx-5">
+            <div class="row mx-2">
               <div class="col-lg-6" data-aos="fade-up">
                 <h3 class="resume-title">Education</h3>
                 <div class="resume-item">
@@ -120,10 +141,14 @@
         <div class = 'col-12 resume'><h3 class="resume-title">Projects</h3></div>
         {% for project in projects %}
             <div class = "col my-2">
-                <a href="/to/project/{{ project.id }}" target="_blank" id="card_anchor">
+                <a href="/to/project/{{ project.id }}" target="_parent" id="card_anchor">
                 <div class="project-box">
+                    <p class="text-secondary project-domain">{{ project.project_domain }}</p>
                     <p class="lead project-title">{{ project.name }}</p>
                     <p class="project-status">{{ project.status }}</p>
+                    <div class="project-icon" style="background-image: url('{{ project.icon.url }}')">
+                        <!--<img src="{{ project.icon.url }}" class="img rounded" height="100px" width="100px" style="float: right">-->
+                    </div>
                 </div>
                 </a>
             </div>
@@ -150,10 +175,11 @@
     </div>
 
     <footer id='about'>
-        <div class="container-fluid mb-0 pb-1 px-5 pt-5" style="background-image: linear-gradient(45deg,azure, bisque);overflow: hidden">
+        <div class="container-fluid mb-0 pb-1 px-5 pt-5" style="overflow: hidden">
 
                 <!--footer -->
-                <div class="row">
+            <div class="container">
+                <div class="row c-footer">
                     <div class="col-12 col-lg-4">
                         <div class="row">
                             <div class="col-2 pl-1 mt-1">
@@ -175,7 +201,7 @@
                         </ul>
                     </div>
                 </div>
-
+            </div>
             <hr>
             <p align="center">Made with <span class="fa fa-heart" style="color: red"></span> by Atul Singh | &copy; All rights reserved.<p>
         </div>

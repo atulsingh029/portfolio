@@ -11,7 +11,7 @@
                     <img src="{{ main_story.image }}" alt="{{ main_story.title }}" class="img-fluid">
                     <h1 class="main-story-title">{{ main_story.title }}</h1>
                     <p class="main-story-detail">By : {{ main_story.writer }} On {{ main_story.datetime }}</p>
-                    <p class="main-story-subtitle">{{ main_story.subtitle }}</p>
+                    {% autoescape off %}<p class="main-story-subtitle">{{ main_story.subtitle }}</p>{% endautoescape %}
                 </a>
             </div>
         </div>
@@ -33,7 +33,7 @@
                                 <div class="col-8">
                                     <p class="story-title m-0">{{ story.title }}</p>
                                     <p class="story-detail p-0 m-0">By : {{ story.writer }} on {{ story.datetime }}</p>
-                                    <p class="story-subtitle">{{ story.subtitle }}</p>
+                                    {% autoescape off %}<p class="story-subtitle">{{ story.subtitle }}</p>{% endautoescape %}
                                 </div>
                                 <div class="col-4">
                                     <img src="{{ story.image.url }}" alt="{{ main_story.title }}" class="img-thumbnail top-story-image">
@@ -65,7 +65,7 @@
                                 <div class="col-8">
                                     <p class="story-title m-0 pl-2">{{ story.title }}</p>
                                     <p class="story-detail m-0 pl-2">By : {{ story.writer }} on {{ story.datetime }}</p>
-                                    <p class="story-subtitle pl-2">{{ story.subtitle }}</p>
+                                    {% autoescape off %}<p class="story-subtitle pl-2">{{ story.subtitle }}</p>{% endautoescape %}
                                 </div>
                                 <div class="col-4 text-right">
                                     <img src="{{ story.image.url }}" alt="{{ main_story.title }}" class="img-thumbnail top-story-image">

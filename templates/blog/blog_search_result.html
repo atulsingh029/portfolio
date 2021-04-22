@@ -1,5 +1,50 @@
 {% extends 'abstract_blog.html' %}
-
+{% load static %}
+{% block head_container %}
+    <link href="{% static 'stylesheet/blog_search.css' %}" rel="stylesheet">
+{% endblock %}
 {% block main_container %}
-{{ key }}
+    <div class="row">
+        <div class="col-12 col-md-12 col-lg-8 col-xl-8 m-auto">
+            {{ res }}
+                {% for story in results %}
+                    <div class="top-story-card">
+                        <a href="/blog/g/?to={{ story.linkkey }}" class="menu_anchor">
+                            <div class="row">
+                                <div class="col-8">
+                                    <p class="story-title m-0 pl-2">{{ story.title }}</p>
+                                    <p class="story-detail m-0 pl-2">By : {{ story.writer }} on {{ story.datetime }}</p>
+                                    {% autoescape off %}<p class="story-subtitle pl-2">{{ story.subtitle }}</p>{% endautoescape %}
+                                </div>
+                                <div class="col-4 text-right">
+                                    <img src="{{ story.image.url }}" alt="{{ main_story.title }}" class="img-thumbnail top-story-image">
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+        </div>
+    </div>
+
+        <!-- blog pagination -->
+        <div>
+            {% if results.has_other_pages %}
+                {% if results.has_previous %}
+                    <a href="?key={{ key }}&page=1" class="btn btn-outline-info m-1 btn-sm">First</a>
+                    <a href="?key={{ key }}&page={{ results.previous_page_number }}#results" class="btn btn-outline-info m-1 btn-sm">Previous</a>
+                {% endif %}
+                {% for num in results.paginator.page_range %}
+                    {% if num == results.number %}
+                        <a href="?key={{ key }}&page={{ num }}" class="btn btn-info m-1 btn-sm">{{ num }}</a>
+                        {% elif num > results.number|add:'-3' and num < results.number|add:'3' %} <a href="?key={{ key }}&page={{ num }}"
+                            class="btn btn-outline-info m-1 btn-sm">{{ num }}</a>
+                        {% endif %}
+                {% endfor %}
+                {% if results.has_next %}
+                    <a href="?key={{ key }}&page={{ results.next_page_number }}" class="btn btn-outline-info m-1 btn-sm">Next</a>
+                    <a href="?key={{ key }}&page={{ results.paginator.num_pages }}" class="btn btn-outline-info m-1 btn-sm">Last</a>
+                {% endif %}
+            {% endif %}
+        </div>
+
 {% endblock %}

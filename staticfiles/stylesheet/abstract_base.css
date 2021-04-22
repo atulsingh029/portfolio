@@ -1,5 +1,5 @@
 body {
-    background: linear-gradient(to right, #d8edfc, #fdeee6);
+    background: lightblue ;
 }
 
 #main {
@@ -31,4 +31,11 @@ body {
 
 #about {
 
+}
+
+.c-footer {
+  padding: 20px;
+  background-color: white;
+  border-radius: 20px;
+  min-height: 150px;
 }

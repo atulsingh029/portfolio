@@ -49,17 +49,18 @@ class Project(models.Model):
     name = models.CharField(max_length=255, null=False, blank=False)
     sourcecode = models.URLField(null=True, blank=True, default=None)
     deployment_url = models.URLField(null=True, blank=True, default=None)
-    icon = models.ImageField(upload_to='icons',null=True, blank=True, default='media/icons/project.png')
+    icon = models.ImageField(upload_to='icons',null=True, blank=True, default='icons/project.png')
     deployed = models.CharField(max_length=8, choices=Deployed, default='no')
     source = models.CharField(max_length=8, choices=Source, default='close')
     project_type = models.CharField(max_length=10, choices=(('solo', 'solo'), ('group', 'group')))
+    project_domain = models.CharField(max_length=50)
     developers = models.ManyToManyField(Profile)
     tech_stack = models.ManyToManyField(TechStack)
     status = models.CharField(max_length=15, choices=(('Completed', 'completed'), ('In Progress', 'in progress')))
     start_date = models.DateField(null=True, blank=True)
     end_date = models.DateField(null=True, blank=True)
     allowed = models.BooleanField(default=False)
-    description = models.TextField(max_length=4000, null=True, blank=True)
+    description = models.TextField(max_length=10000, null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -70,6 +71,9 @@ class ProjectScreenshot(models.Model):
     image = models.ImageField(upload_to='media/screenshots', null=True, blank=True)
     first = models.BooleanField(default=False)
 
+    def __str__(self):
+        return self.project.name
+
 
 class ProjectRelatedDoc(models.Model):
     project = models.ForeignKey(Project, null=True, blank=True, on_delete=models.CASCADE)
@@ -77,6 +81,9 @@ class ProjectRelatedDoc(models.Model):
     icon = models.CharField(max_length=50, default='file', null=True, blank=True)
     document = models.FileField(upload_to='doc/')
     type = models.CharField(max_length=100, choices=(('public', 'public'), ('private', 'private')))
+
+    def __str__(self):
+        return self.project.name + " Document : " +str(self.name)
 
 
 class Certification(models.Model):

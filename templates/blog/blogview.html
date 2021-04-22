@@ -25,10 +25,10 @@
       </div>
     </div>
     <div class="blog-hero row">
-        <div class="col-12 col-sm-12 col-lg-6 col-md-6 col-lg-6 col-xl-6 text-center">
+        <div class="col-12 col-sm-12 col-lg-8 col-md-8 col-lg-8 col-xl-8 text-center">
             <img src="{{ blog.image.url }}" class="img-fluid rounded" alt="{{ blog.title }}">
         </div>
-        <div class="col-12 col-sm-12 col-lg-6 col-md-6 col-lg-6 col-xl-6">
+        <div class="col-12 col-sm-12 col-lg-4 col-md-4 col-lg-4 col-xl-4">
             <h6 class="mt-2 mt-md-0 mb-0 pb-0">Tags</h6><hr class="p-0 m-0">
             {% for tag in tags %}
                 <a class="btn btn-outline-primary m-1 btn-sm" href="/blog/get/tag?key={{ tag }}">{{ tag }}</a>
@@ -36,7 +36,9 @@
         </div>
     </div>
     <div class="blog-subtitle mt-2">
-        <p class="blog-subtitle-text">{{ blog.subtitle }}</p>
+    {% autoescape off %}
+        <div class="blog-subtitle-text">{{ blog.subtitle }}</div>
+    {% endautoescape %}
     </div>
     <div class="m-1 p-1">
     {%  if blog.safe %}
@@ -65,7 +67,7 @@
                             <div class="col-8">
                                 <p class="story-title m-0 pl-2">{{ story.title }}</p>
                                 <p class="story-detail m-0 pl-2">By : {{ story.writer }} on {{ story.datetime }}</p>
-                                <p class="story-subtitle pl-2">{{ story.subtitle }}</p>
+                                {% autoescape off %}<p class="story-subtitle pl-2">{{ story.subtitle }}</p>{% endautoescape %}
                             </div>
                             <div class="col-4 text-right">
                                 <img src="{{ story.image.url }}" alt="{{ main_story.title }}" class="img-thumbnail top-story-image">
