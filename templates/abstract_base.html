@@ -15,6 +15,17 @@
     <title>{{ page_context.title }}</title>
 </head>
 <body>
+    <style>
+        #particles-js{
+          width: 100%;
+          height: 100%;
+          position: fixed;
+          background-size: cover;
+          background-position: 50% 50%;
+          background-repeat: no-repeat;
+        }
+    </style>
+    <div id="particles-js"></div>
     <div class="navi-box text-center">
             <ul>
                 <li><a href="/">HOME</a></li>
@@ -24,12 +35,15 @@
             </ul>
         </div>
     <div class="container" id="main">
+    {% if error_message %}
+        <h1 class="m-1">{{ error_message }}</h1>
+    {% endif %}
         {% block main_container %}
         {% endblock %}
     </div>
 <!--footer -->
     <footer id='about'>
-        <div class="container-fluid mb-0 pb-1 px-1 pt-5" style="overflow: hidden">
+        <div class="container-fluid mb-0 pb-1 px-3 pt-5" style="overflow: hidden">
             <div class="container">
                 <!--footer -->
                 <div class="row c-footer">
@@ -60,6 +74,11 @@
         </div>
     </footer>
 <!-- end footer tag -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script>
+        particlesJS.load('particles-js', '{% static 'particles.json' %}', function() {
+        });
+    </script>
 </body>
 </html>
 <!--background-image: linear-gradient(45deg,azure, bisque);-->

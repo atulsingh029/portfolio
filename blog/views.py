@@ -13,7 +13,7 @@ def blog(request):
     tags = Tag.objects.all()
     series = BlogSeries.objects.all()
     if blog_len == 0:
-        return render(request, 'blog/blog_404.html')
+        return render(request, 'blog/blog_404.html', context={'contact_buttons': contact_icons, "profile": profile})
 
     banner_temp = Blog.get_latest_blog()
 
@@ -53,7 +53,7 @@ def blogView(request):
     goto = request.GET.get('to', '')
     obj = Blog.objects.filter(linkkey=goto, allowed=True)
     if len(obj) == 0:
-        return render(request, template_name='blog/blog_404.html')
+        return render(request, template_name='blog/blog_404.html',context={'contact_buttons': contact_icons, "profile": profile})
     series = BlogSeries.objects.filter(blogs=obj[0])
     if len(series) == 0:
         series = ''
@@ -70,7 +70,7 @@ def blogView(request):
                'safe': obj[0].allow_html, 'linkkey': obj[0].linkkey}
         title = obj[0].title
     except:
-        return render(request, template_name='blog/blog_404.html')
+        return render(request, template_name='blog/blog_404.html',context={'contact_buttons': contact_icons, "profile": profile})
     tags = obj[0].tags.all()
     genre = obj[0].type
     recommended = Blog.objects.filter(allowed=True, type=genre, )
@@ -120,7 +120,7 @@ def get(request, obj):
         return render(request, template_name='blog/blog_search_result.html', context=context)
     elif obj == 'series':
         key = request.GET['key'][:255]
-        context.update({"res": "Feature coming soon!"})
+        context.update({"res": "Feature coming soon!","error_message":"Working on it!"})
         return render(request, template_name='blog/blog_search_result.html', context=context)
     else:
         key = request.GET['key'][:30]

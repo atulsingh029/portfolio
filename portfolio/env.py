@@ -1,14 +1,14 @@
 import os
 
-SECRET_KEY = ''
+SECRET_KEY = 'tester'
 
-ALLOW_HOSTS = []
+ALLOW_HOSTS = ['*']
 
 DEBUG = True
 
-DB_NAME = ''
-DB_USER = ''
-DB_PASSWORD = ''
+DB_NAME = 'portfolio'
+DB_USER = 'admin'
+DB_PASSWORD = 'password'
 DB_HOST = ''
 DB_POST = ''
 

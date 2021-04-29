@@ -42,6 +42,8 @@ def home(request):
 
 
 def contact(request):
+    profile = Profile.objects.get(email='atulsingh29@protonmail.com')
+    contact_icons = ContactIcon.objects.filter(profile=profile)
     if request.method == 'POST':
         email = request.POST['email']
         name = request.POST['name']
@@ -55,7 +57,7 @@ def contact(request):
         send_mail(reply_subject, reply_message, 'atul.auth@gmail.com', [email, ], fail_silently=True)
         return redirect(redirect + '/?refer=refer_success')
     else:
-        return render(request, template_name='portfolio/collab.html')
+        return render(request, template_name='portfolio/collab.html', context={'contact_buttons': contact_icons, "profile": profile, "error_message":"Working on it!"})
 
 
 def get_client_ip(request):

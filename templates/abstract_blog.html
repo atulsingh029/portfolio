@@ -29,6 +29,9 @@
                 </form>
             </div>
         </div>
+        {% if error_message %}
+            <h1 class="m-1">{{ error_message }}</h1>
+        {% endif %}
         {% block main_container %}
         {% endblock %}
 
@@ -36,7 +39,7 @@
         {% endblock %}
     </div>
 <footer id='about'>
-        <div class="container-fluid mb-0 pb-1 px-2 pt-5" style="overflow: hidden">
+        <div class="container-fluid mb-0 pb-1 px-3 pt-5" style="overflow: hidden">
             <div class="container">
                 <!--footer -->
                 <div class="row c-footer">
