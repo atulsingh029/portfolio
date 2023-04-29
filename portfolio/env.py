@@ -7,8 +7,8 @@ ALLOW_HOSTS = ['*']
 DEBUG = True
 
 DB_NAME = 'portfolio'
-DB_USER = 'admin'
-DB_PASSWORD = 'password'
+DB_USER = 'root'
+DB_PASSWORD = ''
 DB_HOST = ''
 DB_POST = ''
 
